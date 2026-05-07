@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="relatorio.css">
+        <script src="relatorio.js"></script>
+        <title>Saúde MaiX - Relatório Gerencial</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-padrao">
+                <div class="titulo">
+                    Saúde MaiX
+                </div> 
+                <h2>Painel do Administrador</h2>
+                <p>Visão geral das triagens realizadas</p>
+
+                <h3>Filtros de Busca</h3>
+                <form id="filtro-form">
+                    <input type="date" name="data_inicio" required>
+                    <input type="date" name="data_fim" required>
+                    <button onclick="FiltrarPeriodo()" type="button" style="background-color: #555;">Filtrar Período</button>
+                </form>
+
+                <h3>Estatísticas</h3>
+                <div class="estatisticas-box">
+                    <p><strong>Total de Triagens no Período:</strong> <span id="total_triagens">--</span></p>
+                    <p><strong>Pacientes com Alto Risco (Encaminhados):</strong> <span id="alto_risco">--</span>%</p>
+                    <p><strong>Indicador Mais Frequente:</strong> <span id="indicador_freq">--</span></p>
+                </div>
+
+                <button type="button" onclick="window.print()">Imprimir Relatório</button>
+            </div>
+        </div>
+    </body>
+</html>
