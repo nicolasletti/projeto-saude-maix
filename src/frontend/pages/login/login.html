@@ -1,32 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="login.css">
-        <script src="login.js"></script>
-        <title>Saúde MaiX - Acesso ao Sistema</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="form-padrao">
-                <div class="titulo">
-                    Saúde MaiX
-                </div> 
-                <h2>Login</h2>
-                <p>Aceda à plataforma de triagem</p>
-
-                <form id="login-form">
-                    <input type="email" name="email" placeholder="E-mail Profissional" required> <br>
-                    <input type="password" name="senha" placeholder="Senha" required> <br>
-                    
-                    <button type="button" onclick="Entrar()">Entrar</button>
-                    
-                    <p style="margin-top: 20px; font-size: 12px;">
-                        Esqueceu-se da palavra-passe? Contacte o administrador.
-                    </p>
-                </form>
-            </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Saúde Maix</title>
+    <link rel="stylesheet" href="@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap')";>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h2>Bem-vindo</h2>
+            <p>Acesse sua conta e continue de onde parou.</p>
+            <div class="destaque"></div>
         </div>
-    </body>
+        <div class="right-panel">
+            <img src="../img/saudemaix-subtitle-deitado.png" alt="Descrição da imagem">
+            <h2>Entre na sua conta</h2>
+            <label for="email">Email:</label>
+            <input type="text" class="input-field"/>
+            <label for="password">Senha:</label>
+            <input type="password" class="input-field"/>
+            <button>Entrar</button>
+            <p>Não tem uma conta? <a href="mailto:suporte.saudemaix@gmail.com">Contato com o suporte!</a></p><!--Colocar o email de suporte aqui-->
+        </div>
+    </div>
+</body>
 </html>

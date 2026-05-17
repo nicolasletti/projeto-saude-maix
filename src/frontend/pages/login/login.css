@@ -1,69 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Wrapper que centraliza tudo na tela */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #0288d1;
-    min-height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #111; /* fundo atrás do retângulo */
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
 }
-
+/* O retângulo em si */
 .container {
-    margin: 20px 15px;
-    width: 100%;
-    max-width: 400px;
+  display: flex;
+  width: 900px;        /* largura máxima */
+  height: 550px;       /* altura fixa */
+  border-radius: 16px; /* cantos arredondados */
+  overflow: hidden;    /* impede o gradiente vazar nas bordas */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); /* sombra opcional */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.left-panel {
+  width: 40%;
+  background: linear-gradient(0deg, rgba(0, 51, 123, 1) 0%, rgba(8, 152, 165, 1) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  gap: 12px;
 }
 
-.form-padrao {
-    padding: 40px 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.left-panel h2 {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.titulo {
-    color: #333;     
-    font-size: 28px; 
-    border-bottom: 2px solid #0288d1; 
-    font-family: 'Arial Black', sans-serif;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
+.left-panel p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
-h2 {
-    color: #444;
-    margin-top: 10px;
+/* A barrinha rosa embaixo do texto */
+.destaque {
+  width: 240px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
 }
 
-p {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
+.right-panel {
+  flex: 1;
+  background: #1e1e1e;       /* fundo escuro */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  gap: 10px;
+}
+.right-panel img {
+  width: 180px;
+  margin-bottom: 20px;
+}
+.right-panel h2 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.right-panel p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+label {
+  color: #ccc;
+  font-size: 0.85rem;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  width: 60%;
+}
+
+input:focus {
+  outline: none;
+  border-color: #f5576c;   /* borda rosa no foco */
 }
 
 button {
-    width: 100%;
-    padding: 12px;
-    background-color: #0288d1;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
+  width: 60%;
+  background: #0A8894;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
 }
 
 button:hover {
-    background-color: #01579b;
+  background: #0898A5;
+  transition: background 0.2s ease;
+}
+
+a {
+    color: white;
+    text-decoration: none; /* Remove o sublinhado, se desejar */
+}
+
+/* Cor quando o mouse passa por cima (hover) */
+a:hover {
+    color: #0898A5;
+    transition: 0.2s ease; /* Transição suave para a cor */
+    text-decoration: underline; /* Adiciona sublinhado no hover */
 }
