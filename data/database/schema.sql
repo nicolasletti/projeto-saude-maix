@@ -7,11 +7,11 @@ CREATE TABLE IF NOT EXISTS Responsavel (
     nome_completo VARCHAR(150) NOT NULL,
     cpf VARCHAR(14) UNIQUE NOT NULL,
     grau_parentesco VARCHAR(50) NOT NULL,
-    telefone VARCHAR(15) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
     email VARCHAR(100)
 );
 
-
+-- Tabela Paciente não tem atributo "telefone" no modelo original, porém no arquivo csv existe o campo "telefone". Precisa de ajustes.
 CREATE TABLE IF NOT EXISTS Paciente (
     id_paciente SERIAL PRIMARY KEY,
     id_responsavel INT REFERENCES Responsavel(id_responsavel) NOT NULL,
@@ -21,16 +21,16 @@ CREATE TABLE IF NOT EXISTS Paciente (
     data_nascimento DATE NOT NULL,
     sexo_biologico CHAR(1) CHECK (sexo_biologico IN ('M', 'F')) NOT NULL,
     endereco TEXT,
-    contato VARCHAR(15)
+    telefone VARCHAR(20)
 );
 
-
+-- Atributo "telefone" VARCHAR(15) É insuficiente para armazenar números de telefone no formato padrão. Alterar para VARCHAR(20).
 CREATE TABLE IF NOT EXISTS Profissional (
     id_profissional SERIAL PRIMARY KEY,
     nome_completo VARCHAR(150) NOT NULL,
     cpf VARCHAR(14) UNIQUE NOT NULL,
     especialidade VARCHAR(100),
-    telefone VARCHAR(15),
+    telefone VARCHAR(20),
     email VARCHAR(100),
     num_conselho VARCHAR(50) UNIQUE,
     login VARCHAR(50) UNIQUE NOT NULL,
@@ -116,3 +116,4 @@ COPY Triagem FROM 'C:/Temp/triagem.csv' WITH (FORMAT csv, HEADER true, DELIMITER
 COPY Indicador_Triagem FROM 'C:/Temp/indicador_triagem.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');
 COPY Relatorio FROM 'C:/Temp/relatorio.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');
 COPY Prontuario FROM 'C:/Temp/prontuario.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');
+
