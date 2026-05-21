@@ -21,3 +21,23 @@ async function Entrar() {
     alert(dados.erro);
   }
 }
+
+function TrocadeTema() {
+  
+  const body = document.body;
+  
+  
+  const sunIcon = document.getElementById('sunIcon');
+  const moonIcon = document.getElementById('moonIcon');
+
+  body.classList.toggle('light');
+
+  if (body.classList.contains("light")) {
+    sunIcon.style.display = "none";
+    moonIcon.style.display = "inline";
+  } else {
+    sunIcon.style.display = "inline";
+    moonIcon.style.display = "none";
+  }
+
+}

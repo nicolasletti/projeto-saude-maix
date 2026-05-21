@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -21,6 +22,8 @@ body {
   overflow: hidden;    /* impede o gradiente vazar nas bordas */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); /* sombra opcional */
   border: 1px solid rgba(255, 255, 255, 0.08);
+
+  position: relative; /* para posicionar o botão de tema */
 }
 .left-panel {
   width: 40%;
@@ -124,4 +127,61 @@ a:hover {
     color: #0898A5;
     transition: 0.2s ease; /* Transição suave para a cor */
     text-decoration: underline; /* Adiciona sublinhado no hover */
+}
+
+/* botão que muda o tema */
+#temaBtn {
+    transition: 0.3s ease;
+    position:absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #0A8894;
+    color: white;
+    width: auto;
+    z-index: 100;
+  }
+
+#temaBtn:hover {
+    transform: scale(1.08) rotate(5deg);
+}
+/* tema claro */
+
+body.light {
+    background: #f2f2f2;
+}
+
+body.light .container{
+    background: white;
+}
+
+body.light .right-panel {
+    background: white;
+}
+
+body.light .right-panel h2{
+    color: black;
+}
+
+body.light .right-panel p{
+    color: #333;
+}
+
+body.light input {
+    background: #eaeaea;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+body.light a {
+    color: #0A8894;
+}
+
+#sunIcon,
+#moonIcon{
+    width: 24px;
+    height: 24px;
 }
