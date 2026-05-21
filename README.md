@@ -38,7 +38,7 @@ Antes de começar, certifique-se de ter instalado na sua máquina:
 **1. Clone o repositório:**
  
 ```bash
-git clone https://github.com/seu-usuario/saude-maix.git
+git clone https://github.com/nicolasletti/saude-maix.git
 cd saude-maix
 ```
  
@@ -194,7 +194,7 @@ git config --global user.email "seu@email.com"
 ### Clonar o repositório
  
 ```bash
-git clone https://github.com/seu-usuario/saude-maix.git
+git clone https://github.com/nicolasletti/saude-maix.git
 ```
  
 ### Ver o estado atual dos arquivos
