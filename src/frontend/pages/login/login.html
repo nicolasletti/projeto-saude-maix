@@ -6,6 +6,7 @@
     <title>Login - Saúde Maix</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./login.css">
+    <script src="./login.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,10 +19,10 @@
             <img src="../img/saudemaix-subtitle-deitado.png" alt="Descrição da imagem">
             <h2>Entre na sua conta</h2>
             <label for="email">Email:</label>
-            <input type="text" class="input-field"/>
+            <input type="text" name="email" id="email" class="input-field"/>
             <label for="password">Senha:</label>
-            <input type="password" class="input-field"/>
-            <button>Entrar</button>
+            <input type="password" name="senha" id="password" class="input-field"/>
+            <button onclick="Entrar()">Entrar</button>
             <p>Não tem uma conta? <a href="mailto:suporte.saudemaix@gmail.com">Contato com o suporte!</a></p><!--Colocar o email de suporte aqui-->
         </div>
     </div>
