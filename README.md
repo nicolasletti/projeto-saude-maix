@@ -1,4 +1,3 @@
-e · MD
 # Saúde MaiX
  
 Sistema web de apoio à triagem clínica para a **Síndrome do X Frágil (SXF)**, desenvolvido como Projeto de Extensão em parceria com a **PUCPR** e o **IBK**.
