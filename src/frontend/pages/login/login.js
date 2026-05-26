@@ -16,28 +16,24 @@ async function Entrar() {
   const dados = await resposta.json();
 
   if (resposta.ok) {
-    window.location.href = '/pages/triagem/triagem.html';
+    window.location.href = '/pages/main/main.html';
   } else {
     alert(dados.erro);
   }
 }
 
 function TrocadeTema() {
-  
-  const body = document.body;
-  
-  
-  const sunIcon = document.getElementById('sunIcon');
+  const body     = document.body;
+  const sunIcon  = document.getElementById('sunIcon');
   const moonIcon = document.getElementById('moonIcon');
 
-  body.classList.toggle('light');
+  body.classList.toggle('dark');
 
-  if (body.classList.contains("light")) {
-    sunIcon.style.display = "none";
-    moonIcon.style.display = "inline";
+  if (body.classList.contains('dark')) {
+    sunIcon.style.display  = 'inline';
+    moonIcon.style.display = 'none';
   } else {
-    sunIcon.style.display = "inline";
-    moonIcon.style.display = "none";
+    sunIcon.style.display  = 'none';
+    moonIcon.style.display = 'inline';
   }
-
 }

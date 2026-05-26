@@ -1,35 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Saúde Maix</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./login.css">
-    <script src="./login.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Saúde MaiX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./login.css">
 </head>
 <body>
-    
-    <div class="container">
-        <button id="temaBtn" onclick="TrocadeTema()">
-            <img id="sunIcon" src="../img/logo-sol.png">
-            <img id="moonIcon" src="../img/logo-lua.png" style="display: none;">
+
+  <div class="page">
+
+    <div class="login-card">
+
+      <!-- PAINEL ESQUERDO — brand -->
+      <div class="panel-left">
+        <div class="brand">
+          <div class="logo-mark">SX</div>
+          <span class="logo-text">Saúde MaiX</span>
+        </div>
+
+        <div class="brand-copy">
+          <h2>Triagem clínica para Síndrome do X Frágil</h2>
+          <p>Identifique indicadores com precisão e gere relatórios para acompanhamento dos pacientes.</p>
+        </div>
+
+        <div class="brand-bar"></div>
+      </div>
+
+      <!-- PAINEL DIREITO — formulário -->
+      <div class="panel-right">
+
+        <button class="btn-tema" id="temaBtn" onclick="TrocadeTema()" title="Alternar tema">
+          <img id="sunIcon" src="../img/logo-sol.png" alt="Tema claro">
+          <img id="moonIcon" src="../img/logo-lua.png" alt="Tema escuro" style="display:none">
         </button>
-        <div class="left-panel">
-            <h2>Bem-vindo</h2>
-            <p>Acesse sua conta e continue de onde parou.</p>
-            <div class="destaque"></div>
+
+        <div class="form-wrapper">
+          <div class="form-header">
+            <h1 class="form-title">Entre na sua conta</h1>
+            <p class="form-sub">Acesse sua conta e continue de onde parou.</p>
+          </div>
+
+          <form id="form-login" onsubmit="return false">
+            <div class="form-field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email">
+            </div>
+
+            <div class="form-field">
+              <label for="password">Senha</label>
+              <input type="password" id="password" name="senha" placeholder="••••••••" autocomplete="current-password">
+            </div>
+
+            <button type="button" class="btn-primary" onclick="Entrar()">Entrar</button>
+          </form>
+
+          <p class="form-footer">
+            Sem acesso?
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=suporte.saudemaix@gmail.com&su=Suporte%20Sa%C3%BAde%20Maix%20-%20Dificuldade%20de%20Acesso&body=Ol%C3%A1,%0A%0AN%C3%A3o%20tenho%20uma%20conta%20ou%20estou%20com%20problemas%20para%20acessar%20a%20plataforma.%0A%0AMeu%20nome%20completo:%20%0AMeu%20CPF:%20%0A%0AO%20que%20o(a)%20senhor(a)%20deseja?%20" target="_blank" rel="noopener">
+              Contato com o suporte
+            </a>
+          </p>
         </div>
-        <div class="right-panel">
-            <img src="../img/saudemaix-subtitle-deitado.png" alt="Descrição da imagem">
-            <h2>Entre na sua conta</h2>
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email" class="input-field"/>
-            <label for="password">Senha:</label>
-            <input type="password" name="senha" id="password" class="input-field"/>
-            <button onclick="Entrar()">Entrar</button>
-            <p>Não tem uma conta? <a href="https://mail.google.com/mail/?view=cm&fs=1&to=suporte.saudemaix@gmail.com&su=Suporte%20Sa%C3%BAde%20Maix%20-%20Dificuldade%20de%20Acesso&body=Ol%C3%A1,%0A%0AN%C3%A3o%20tenho%20uma%20conta%20ou%20estou%20com%20problemas%20para%20acessar%20a%20plataforma.%0A%0AMeu%20nome%20completo:%20%0AMeu%20CPF:%20%0A%0AO%20que%20o(a)%20senhor(a)%20deseja?%20" target="_blank">Contato com o suporte!</a></p>
-        </div>
+
+      </div>
     </div>
+
+  </div>
+
+  <script src="./login.js"></script>
 </body>
 </html>
