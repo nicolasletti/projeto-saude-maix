@@ -61,12 +61,12 @@ body {
 /* === PAINEL ESQUERDO === */
 .panel-left {
   width: 40%;
-  background: var(--brand-navy);
+  background: radial-gradient(ellipse at 50% 45%, #1a2a52 0%, var(--brand-navy) 68%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 40px 36px;
-  gap: 0;
+  gap: 20px;
   flex-shrink: 0;
 }
 
@@ -98,27 +98,94 @@ body {
   letter-spacing: -0.2px;
 }
 
-.brand-copy {
+/* === CENA DA BORBOLETA === */
+.butterfly-scene {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 40px 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-.brand-copy h2 {
-  font-size: 22px;
+.butterfly-container {
+  animation: float 5s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.butterfly-svg {
+  width: 200px;
+  height: 165px;
+  overflow: visible;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.wing-left {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: wingFlap 1.4s ease-in-out infinite;
+}
+
+.wing-right {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: wingFlap 1.4s ease-in-out infinite;
+}
+
+/* === PARTÍCULAS === */
+.particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(139, 127, 245, 0.75);
+  animation: particleRise linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === TAGLINE === */
+.brand-tagline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brand-tagline h2 {
+  font-size: 18px;
   font-weight: 600;
   color: var(--on-dark);
   line-height: 1.3;
   letter-spacing: -0.3px;
 }
 
-.brand-copy p {
-  font-size: 14px;
+.brand-tagline p {
+  font-size: 13px;
   color: var(--on-dark-muted);
   line-height: 1.6;
+}
+
+/* === KEYFRAMES === */
+@keyframes wingFlap {
+  0%, 100% { transform: scaleX(1); }
+  50%       { transform: scaleX(0.12); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(86, 69, 212, 0.55)); }
+  50%       { filter: drop-shadow(0 0 20px rgba(139, 127, 245, 0.90)); }
+}
+
+@keyframes particleRise {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.75; }
+  100% { transform: translateY(-90px) scale(0.2); opacity: 0; }
 }
 
 .brand-bar {
