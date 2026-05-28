@@ -37,3 +37,19 @@ function TrocadeTema() {
     moonIcon.style.display = 'inline';
   }
 }
+
+function TogglePasswordVisibility() {
+  const passwordInput = document.getElementById('password');
+  const toggleIcon = document.getElementById('togglePassword');
+  
+  if (passwordInput.type === 'password') {
+
+    passwordInput.type = 'text';
+    toggleIcon.src = '../img/visibility_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg';
+    toggleIcon.alt = 'Ocultar senha';
+  } else {
+    passwordInput.type = 'password';
+    toggleIcon.src = '../img/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg';
+    toggleIcon.alt = 'Mostrar senha';
+  }
+}

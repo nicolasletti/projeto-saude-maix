@@ -129,7 +129,7 @@
       <!-- PAINEL DIREITO — formulário -->
       <div class="panel-right">
 
-        <button class="btn-tema" id="temaBtn" onclick="TrocadeTema()" title="Alternar tema">
+        <button class="btn-tema" id="temaBtn" onclick="TrocadeTema()">
           <img id="sunIcon" src="../img/logo-sol.png" alt="Tema claro">
           <img id="moonIcon" src="../img/logo-lua.png" alt="Tema escuro" style="display:none">
         </button>
@@ -149,6 +149,7 @@
             <div class="form-field">
               <label for="password">Senha</label>
               <input type="password" id="password" name="senha" placeholder="••••••••" autocomplete="current-password">
+              <img src="../img/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" id="togglePassword" class="eye-icon" alt="Mostrar senha" onclick="TogglePasswordVisibility()">
             </div>
 
             <button type="button" class="btn-primary" onclick="Entrar()">Entrar</button>
