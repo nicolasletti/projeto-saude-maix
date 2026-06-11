@@ -26,6 +26,7 @@ function showToast(msg, tipo = 'success') {
 
 function limparForm() {
   document.getElementById('form-paciente').reset();
+  trocarResponsavel();
 }
 
 function mascaraCPF(valor) {
@@ -44,29 +45,64 @@ function mascaraTelefone(valor) {
   return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
 }
 
+/* === RESPONSÁVEL: 2 estados (vinculado / novo) === */
+const PARENTESCO_LABEL = { pai: 'Pai', mae: 'Mãe', tutor: 'Tutor', outro: 'Outro' };
+
+// Guarda os dados do responsável já cadastrado quando há um vinculado; null = novo.
+let respVinculado = null;
+let ultimoCpfBuscado = '';
+
+function setRespStatus(msg, tipo = '') {
+  const el = document.getElementById('resp-status');
+  el.textContent = msg;
+  el.className = 'field-hint' + (tipo ? ' ' + tipo : '');
+}
+
+function mostrarRespVinculado(resp) {
+  respVinculado = resp;
+  document.getElementById('resp-vinc-nome').textContent = resp.nome_completo;
+  document.getElementById('resp-vinc-meta').textContent =
+    `${PARENTESCO_LABEL[resp.grau_parentesco] || resp.grau_parentesco} · ${resp.telefone}`;
+  document.getElementById('resp-vinculado').hidden = false;
+  document.getElementById('resp-novo').hidden = true;
+  document.getElementById('resp-cpf').setAttribute('readonly', '');
+  setRespStatus('Responsável já cadastrado — os dados serão reaproveitados.', 'success');
+}
+
+function mostrarRespNovo() {
+  respVinculado = null;
+  document.getElementById('resp-vinculado').hidden = true;
+  document.getElementById('resp-novo').hidden = false;
+  setRespStatus('Responsável novo — preencha os dados abaixo.', '');
+}
+
+function trocarResponsavel() {
+  respVinculado = null;
+  ultimoCpfBuscado = '';
+  document.getElementById('resp-vinculado').hidden = true;
+  document.getElementById('resp-novo').hidden = true;
+  document.getElementById('resp-novo')
+    .querySelectorAll('input, select').forEach(el => { el.value = ''; });
+  const cpf = document.getElementById('resp-cpf');
+  cpf.removeAttribute('readonly');
+  cpf.value = '';
+  setRespStatus('Digite o CPF para localizar um responsável já cadastrado.', '');
+}
+
+// Disparada automaticamente quando o CPF chega a 11 dígitos.
 async function buscarResponsavel() {
-  const cpf = document.getElementById('resp-cpf').value.trim();
-  if (cpf.replace(/\D/g, '').length < 11) {
-    showToast('Digite o CPF completo do responsável antes de buscar.', 'error');
-    return;
-  }
+  const cpf = document.getElementById('resp-cpf').value.replace(/\D/g, '');
+  if (cpf.length !== 11 || cpf === ultimoCpfBuscado) return;
+  ultimoCpfBuscado = cpf;
+
+  setRespStatus('Buscando responsável...', '');
   try {
-    const res = await fetch(`/api/responsaveis?cpf=${encodeURIComponent(cpf)}`);
-    if (res.status === 404) {
-      showToast('CPF não encontrado. Preencha os campos abaixo para cadastrar um novo responsável.', 'error');
-      return;
-    }
-    if (!res.ok) {
-      showToast('Erro ao buscar responsável.', 'error');
-      return;
-    }
-    const json = await res.json();
-    document.getElementById('resp-nome').value = json.nome_completo;
-    document.getElementById('resp-telefone').value = json.telefone;
-    document.getElementById('resp-parentesco').value = json.grau_parentesco;
-    showToast(`Responsável "${json.nome_completo}" encontrado e dados preenchidos.`, 'success');
+    const res = await fetch(`/api/responsaveis?cpf=${cpf}`);
+    if (res.status === 404) { mostrarRespNovo(); return; }
+    if (!res.ok) { setRespStatus('Erro ao buscar responsável.', 'error'); return; }
+    mostrarRespVinculado(await res.json());
   } catch {
-    showToast('Erro de conexão ao buscar responsável.', 'error');
+    setRespStatus('Erro de conexão ao buscar responsável.', 'error');
   }
 }
 
@@ -78,20 +114,32 @@ async function cadastrarPaciente() {
     sexo:       document.getElementById('pac-sexo').value,
     endereco:   document.getElementById('pac-endereco').value.trim(),
   };
-  const resp = {
-    nome:       document.getElementById('resp-nome').value.trim(),
-    cpf:        document.getElementById('resp-cpf').value.trim(),
-    parentesco: document.getElementById('resp-parentesco').value,
-    telefone:   document.getElementById('resp-telefone').value.trim(),
-  };
-
   if (!pac.nome || !pac.cpf || !pac.nascimento || !pac.sexo) {
     showToast('Preencha todos os campos obrigatórios do paciente.', 'error');
     return;
   }
-  if (!resp.nome || !resp.cpf || !resp.parentesco || !resp.telefone) {
-    showToast('Preencha todos os campos obrigatórios do responsável.', 'error');
-    return;
+
+  // Responsável: um já cadastrado (respVinculado) ou os campos do "novo".
+  const cpfResp = document.getElementById('resp-cpf').value.trim();
+  let resp;
+  if (respVinculado) {
+    resp = {
+      cpf:        cpfResp,
+      nome:       respVinculado.nome_completo,
+      parentesco: respVinculado.grau_parentesco,
+      telefone:   respVinculado.telefone,
+    };
+  } else {
+    resp = {
+      cpf:        cpfResp,
+      nome:       document.getElementById('resp-nome').value.trim(),
+      parentesco: document.getElementById('resp-parentesco').value,
+      telefone:   document.getElementById('resp-telefone').value.trim(),
+    };
+    if (!resp.cpf || !resp.nome || !resp.parentesco || !resp.telefone) {
+      showToast('Preencha todos os campos obrigatórios do responsável.', 'error');
+      return;
+    }
   }
 
   try {
@@ -189,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Botões do formulário
-  document.getElementById('btn-buscar-resp')?.addEventListener('click', buscarResponsavel);
+  document.getElementById('btn-trocar-resp')?.addEventListener('click', trocarResponsavel);
   document.getElementById('btn-cadastrar')?.addEventListener('click', cadastrarPaciente);
   document.getElementById('btn-limpar')?.addEventListener('click', limparForm);
   document.getElementById('btn-atualizar')?.addEventListener('click', carregarPacientes);
@@ -206,6 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('resp-telefone')?.addEventListener('input', e => {
     e.target.value = mascaraTelefone(e.target.value);
   });
+
+  // Busca automática do responsável quando o CPF fica completo (11 dígitos)
+  document.getElementById('resp-cpf')?.addEventListener('input', buscarResponsavel);
 
   carregarPacientes();
 });

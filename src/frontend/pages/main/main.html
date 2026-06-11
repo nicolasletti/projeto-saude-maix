@@ -139,33 +139,50 @@
 
           <div class="form-card">
             <h2 class="form-section-title">Dados do Responsável</h2>
-            <div class="form-row form-row-2">
+
+            <div class="form-row">
               <div class="form-field">
                 <label for="resp-cpf">CPF do responsável <span class="obrigatorio">*</span></label>
-                <div class="input-com-btn">
-                  <input type="text" id="resp-cpf" placeholder="000.000.000-00" maxlength="14">
-                  <button type="button" class="btn-secondary" id="btn-buscar-resp">Buscar</button>
-                </div>
-              </div>
-              <div class="form-field">
-                <label for="resp-telefone">Telefone <span class="obrigatorio">*</span></label>
-                <input type="text" id="resp-telefone" placeholder="(00) 00000-0000" maxlength="15">
+                <input type="text" id="resp-cpf" placeholder="000.000.000-00" maxlength="14">
+                <span class="field-hint" id="resp-status">Digite o CPF para localizar um responsável já cadastrado.</span>
               </div>
             </div>
-            <div class="form-row form-row-2">
-              <div class="form-field" style="flex:2">
-                <label for="resp-nome">Nome do responsável <span class="obrigatorio">*</span></label>
-                <input type="text" id="resp-nome" placeholder="Ex: João da Silva">
+
+            <!-- Estado A: responsável já cadastrado (somente leitura) -->
+            <div class="resp-card" id="resp-vinculado" hidden>
+              <svg class="resp-card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <div class="resp-card-info">
+                <span class="resp-card-nome" id="resp-vinc-nome"></span>
+                <span class="resp-card-meta" id="resp-vinc-meta"></span>
               </div>
-              <div class="form-field" style="flex:1">
-                <label for="resp-parentesco">Parentesco <span class="obrigatorio">*</span></label>
-                <select id="resp-parentesco">
-                  <option value="" disabled selected>Selecione</option>
-                  <option value="pai">Pai</option>
-                  <option value="mae">Mãe</option>
-                  <option value="tutor">Tutor</option>
-                  <option value="outro">Outro</option>
-                </select>
+              <button type="button" class="btn-link" id="btn-trocar-resp">Trocar</button>
+            </div>
+
+            <!-- Estado B: cadastrar novo responsável -->
+            <div id="resp-novo" hidden>
+              <div class="form-row form-row-2">
+                <div class="form-field" style="flex:2">
+                  <label for="resp-nome">Nome do responsável <span class="obrigatorio">*</span></label>
+                  <input type="text" id="resp-nome" placeholder="Ex: João da Silva">
+                </div>
+                <div class="form-field" style="flex:1">
+                  <label for="resp-parentesco">Parentesco <span class="obrigatorio">*</span></label>
+                  <select id="resp-parentesco">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="pai">Pai</option>
+                    <option value="mae">Mãe</option>
+                    <option value="tutor">Tutor</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="resp-telefone">Telefone <span class="obrigatorio">*</span></label>
+                  <input type="text" id="resp-telefone" placeholder="(00) 00000-0000" maxlength="15">
+                </div>
               </div>
             </div>
           </div>
