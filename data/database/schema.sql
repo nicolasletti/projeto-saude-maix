@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Responsavel (
     email VARCHAR(100)
 );
 
--- Tabela Paciente não tem atributo "telefone" no modelo original, porém no arquivo csv existe o campo "telefone". Precisa de ajustes.
+
 CREATE TABLE IF NOT EXISTS Paciente (
     id_paciente SERIAL PRIMARY KEY,
     id_responsavel INT REFERENCES Responsavel(id_responsavel) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Paciente (
     telefone VARCHAR(20)
 );
 
--- Atributo "telefone" VARCHAR(15) É insuficiente para armazenar números de telefone no formato padrão. Alterar para VARCHAR(20).
+
 CREATE TABLE IF NOT EXISTS Profissional (
     id_profissional SERIAL PRIMARY KEY,
     nome_completo VARCHAR(150) NOT NULL,
