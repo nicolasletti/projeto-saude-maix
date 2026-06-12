@@ -1,12 +1,10 @@
 let pacientesNaMemoria = [];
 
-// Único ponto de entrada — garante que o DOM já existe antes de registrar eventos
 document.addEventListener('DOMContentLoaded', () => {
     carregarPacientes();
     document.getElementById('busca_paciente').addEventListener('change', preencherSexoAutomatico);
 });
 
-// ─── Carregamento dos pacientes ──────────────────────────────────────────────
 
 async function carregarPacientes() {
     const dataListPaciente = document.getElementById('lista_pacientes');
@@ -16,13 +14,13 @@ async function carregarPacientes() {
         const dados = await resposta.json();
 
         if (resposta.ok) {
-            // Armazena em memória para uso no preenchimento automático de sexo
+            
             pacientesNaMemoria = dados.pacientes;
 
             dataListPaciente.innerHTML = '';
             dados.pacientes.forEach(paciente => {
                 const opcao = document.createElement('option');
-                opcao.value = paciente.nome_completo;   // apenas o nome, sem ID
+                opcao.value = paciente.nome_completo;   
                 dataListPaciente.appendChild(opcao);
             });
         }
@@ -31,7 +29,6 @@ async function carregarPacientes() {
     }
 }
 
-// ─── Preenchimento automático de sexo ────────────────────────────────────────
 
 function preencherSexoAutomatico() {
     const nomeBusca = document.getElementById('busca_paciente').value.trim();
@@ -52,16 +49,13 @@ function preencherSexoAutomatico() {
         campoSexo.value = '';
     }
 
-    // Oculta/exibe campos dependentes do sexo
     ajustarCamposPorSexo();
 }
 
-// ─── Ajuste de campos por sexo (global, chamada também pelo onchange do select)
 
 function ajustarCamposPorSexo() {
     const sexo = document.getElementById('sexo').value;
 
-    // Macroorquidismo — apenas para masculino
     const divMacro = document.getElementById('div_macroorquidismo');
     const checkboxMacro = document.getElementById('macroorquidismo');
     if (divMacro) {
@@ -73,7 +67,6 @@ function ajustarCamposPorSexo() {
         }
     }
 
-    // Pergunta de infertilidade/menopausa precoce — apenas para feminino
     const perguntaInfertilidade = document.getElementById('pergunta_infertilidade');
     if (perguntaInfertilidade) {
         if (sexo === 'F') {
@@ -84,7 +77,6 @@ function ajustarCamposPorSexo() {
     }
 }
 
-// ─── Processamento da triagem ─────────────────────────────────────────────────
 
 async function processarTriagem() {
     const idPacienteSelecionado = document.getElementById('paciente_id_selecionado').value;

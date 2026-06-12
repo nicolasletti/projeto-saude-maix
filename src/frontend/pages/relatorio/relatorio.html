@@ -9,12 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="relatorio.css">
   <link rel="icon" href="data:,">
-  <!-- Chart.js -->
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 
-  <!-- STATE: relatório não encontrado -->
+ 
   <div id="error-state" class="error-state" style="display:none">
     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
          stroke-linecap="round" stroke-linejoin="round" style="opacity:.35">
@@ -29,7 +29,7 @@
     </a>
   </div>
 
-  <!-- STATE: relatório gerado -->
+  
   <div id="report-state" style="display:none">
 
     <header class="page-header">
@@ -62,7 +62,7 @@
 
     <div class="report-wrapper">
 
-      <!-- 1. BANNER DE RISCO -->
+      
       <div class="risk-banner" id="risk-banner">
         <div class="risk-icon" id="risk-icon"></div>
         <div class="risk-content">
@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <!-- 2. SCORES NUMÉRICOS + GRÁFICO -->
+     
       <div class="card">
         <p class="card-title">Análise Quantitativa</p>
         <div class="scores-row" style="margin-bottom:28px">
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <!-- 3. RECOMENDAÇÃO -->
+      
       <div class="card">
         <p class="card-title">Recomendação Clínica</p>
         <div class="recommendation">
@@ -108,13 +108,13 @@
         </div>
       </div>
 
-      <!-- 4. OBSERVAÇÕES -->
+      
       <div class="card">
         <p class="card-title">Observações Registradas</p>
         <div class="obs-box" id="obs-box"></div>
       </div>
 
-      <!-- RODAPÉ -->
+      
       <div class="report-footer" id="report-footer"></div>
 
     </div>

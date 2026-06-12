@@ -1,6 +1,3 @@
-/* ============================================================
-   relatorio.js — Lê o localStorage da triagem e monta o relatório
-   ============================================================ */
 
 const RISK_CONFIG = {
   'Alto': {
@@ -29,7 +26,7 @@ const RISK_CONFIG = {
   },
 };
 
-/* ── Utilidades ──────────────────────────────────────────── */
+
 
 function formatarData(d) {
   return d.toLocaleDateString('pt-BR', {
@@ -42,12 +39,12 @@ function formatarSexo(s) {
   return s === 'M' ? 'Masculino' : s === 'F' ? 'Feminino' : s;
 }
 
-/* ── Gráfico de gauge com Chart.js ───────────────────────── */
+
 
 function desenharGauge(percentual, cor) {
   const ctx = document.getElementById('gaugeChart').getContext('2d');
 
-  /* Doughnut cortado na metade (semiciclo) */
+  
   const val     = Math.min(Math.max(percentual, 0), 100);
   const restante = 100 - val;
 
@@ -55,7 +52,7 @@ function desenharGauge(percentual, cor) {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [val, restante, 100],            // preenchido | vazio | semiciclo oculto
+        data: [val, restante, 100],            
         backgroundColor: [cor, '#e5e3df', 'transparent'],
         borderColor:     ['transparent', 'transparent', 'transparent'],
         borderWidth:     0,
@@ -81,7 +78,7 @@ function desenharGauge(percentual, cor) {
       afterDraw(chart) {
         const { ctx: c, width, height } = chart;
         const centerX = width  / 2;
-        const centerY = (height / 2) + 30;   /* Empurra para baixo do semiciclo */
+        const centerY = (height / 2) + 30;   
 
         c.save();
         c.textAlign    = 'center';
@@ -99,32 +96,31 @@ function desenharGauge(percentual, cor) {
   });
 }
 
-/* ── Renderização principal ──────────────────────────────── */
+
 
 function renderizarRelatorio(dados) {
   const cfg = RISK_CONFIG[dados.nivelDeRisco] || RISK_CONFIG['Leve'];
 
-  /* Banner de risco */
+ 
   const banner = document.getElementById('risk-banner');
   banner.classList.add(cfg.classe);
   document.getElementById('risk-icon').textContent  = cfg.icon;
   document.getElementById('risk-title').textContent = cfg.titulo;
   document.getElementById('risk-desc').textContent  = cfg.desc;
 
-  /* Scores */
+
   document.getElementById('score-val').textContent     = dados.score;
   document.getElementById('percentual-val').textContent = dados.percentual + '%';
   document.getElementById('limiar-val').textContent    = dados.limiar;
   document.getElementById('sexo-val').textContent      = formatarSexo(dados.sexo);
 
-  /* Gráfico */
+ 
   desenharGauge(dados.percentual, cfg.barColor);
 
-  /* Recomendação */
   document.getElementById('rec-dot').classList.add(cfg.classe);
   document.getElementById('rec-text').innerHTML = cfg.rec;
 
-  /* Observações */
+
   const obsBox = document.getElementById('obs-box');
   if (dados.observacoes && dados.observacoes.trim()) {
     obsBox.textContent = dados.observacoes.trim();
@@ -132,13 +128,13 @@ function renderizarRelatorio(dados) {
     obsBox.innerHTML = '<span class="obs-empty">Nenhuma observação registrada.</span>';
   }
 
-  /* Rodapé com data/hora */
+ 
   const agora = new Date();
   document.getElementById('report-footer').textContent =
     `Relatório gerado em ${formatarData(agora)} · Saúde MaiX`;
 }
 
-/* ── Ponto de entrada ────────────────────────────────────── */
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const raw = localStorage.getItem('relatorioSaudeMaix');
