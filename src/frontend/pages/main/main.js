@@ -258,5 +258,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Busca automática do responsável quando o CPF fica completo (11 dígitos)
   document.getElementById('resp-cpf')?.addEventListener('input', buscarResponsavel);
 
+  // Clique no card do usuário redireciona para perfil
+  document.getElementById('user-card-perfil')?.addEventListener('click', (e) => {
+    if (e.target.closest('#btn-sair')) return; // não redireciona se clicou no botão sair
+    window.location.href = '/pages/perfil_profissional/perfil.html';
+  });
+
+  // Carrega nome e perfil do usuário logado na sidebar
+  fetch('/api/users/usuario-logado')
+    .then(r => r.json())
+    .then(u => {
+      document.getElementById('user-nome').textContent  = u.nome;
+      document.getElementById('user-perfil').textContent = u.perfil || '—';
+      document.getElementById('avatar-inicial').textContent = u.nome?.charAt(0).toUpperCase() || 'A';
+    })
+    .catch(() => {});
+
   carregarPacientes();
 });

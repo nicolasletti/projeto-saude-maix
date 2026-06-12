@@ -1,34 +1,41 @@
-async function carregarPerfilProfissional() {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Botão sair
+  document.getElementById('btn-sair')?.addEventListener('click', () => {
+    window.location.href = '/api/users/deslogar';
+  });
+
   try {
-    // Busca apenas os dados do profissional conectado
     const resposta = await fetch('/api/users/usuario-logado');
 
     if (!resposta.ok) {
-      console.error('Profissional não autenticado');
+      window.location.href = '/pages/login/login.html';
       return;
     }
 
-    const usuario = await resposta.json();
+    const u = await resposta.json();
+    const inicial = u.nome?.charAt(0).toUpperCase() || '?';
 
-    // Preenche o card principal (foto, nome, cargo, email)
-    document.getElementById('nome-profissional').textContent = usuario.nome;
-    document.getElementById('perfil-profissional').textContent = usuario.perfil || 'Profissional';
-    document.getElementById('email-profissional').textContent = usuario.email;
+    // Sidebar
+    document.getElementById('avatar-inicial').textContent  = inicial;
+    document.getElementById('user-nome').textContent       = u.nome;
+    document.getElementById('user-perfil').textContent     = u.perfil || '—';
 
-    // Preenche a tabela de dados profissionais abaixo
-    document.getElementById('nome-dado').textContent = usuario.nome;
-    document.getElementById('cargo-dado').textContent = usuario.perfil || 'Não informado';
-    document.getElementById('email-dado').textContent = usuario.email;
+    // Card avatar
+    document.getElementById('avatar-grande').textContent  = inicial;
+    document.getElementById('perfil-nome').textContent    = u.nome;
+    document.getElementById('perfil-cargo').textContent   = u.perfil || 'Profissional';
+    document.getElementById('perfil-email-sub').textContent = u.email;
 
-    // Se o profissional tiver um registro ou conselho (ex: CRM, CRP), exibe aqui
-    if (usuario.registro) {
-      document.getElementById('registro-dado').textContent = usuario.registro;
+    // Dados profissionais
+    document.getElementById('dado-nome').textContent    = u.nome;
+    document.getElementById('dado-cargo').textContent   = u.perfil || 'Não informado';
+    document.getElementById('dado-email').textContent   = u.email;
+
+    if (u.registro) {
+      document.getElementById('dado-registro').textContent = u.registro;
     }
 
   } catch (erro) {
-    console.error('Erro ao carregar dados do profissional:', erro);
+    console.error('Erro ao carregar perfil:', erro);
   }
-}
-
-// Executa assim que a página abre
-document.addEventListener('DOMContentLoaded', carregarPerfilProfissional);
+});
