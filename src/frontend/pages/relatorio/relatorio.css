@@ -1,0 +1,394 @@
+/* ============================================================
+   DESIGN TOKENS — mesmos do main.css / triagem.css
+   ============================================================ */
+:root {
+  --primary:            #5645d4;
+  --primary-pressed:    #4534b3;
+  --on-primary:         #ffffff;
+  --canvas:             #ffffff;
+  --surface:            #f6f5f4;
+  --surface-soft:       #fafaf9;
+  --hairline:           #e5e3df;
+  --hairline-soft:      #ede9e4;
+  --hairline-strong:    #c8c4be;
+  --ink:                #1a1a1a;
+  --charcoal:           #37352f;
+  --slate:              #5d5b54;
+  --steel:              #787671;
+  --stone:              #a4a097;
+  --muted:              #bbb8b1;
+
+  --risk-alto-bg:       #fde8e8;
+  --risk-alto-fg:       #9b1c1c;
+  --risk-alto-border:   #f3b0b0;
+  --risk-medio-bg:      #fdf6b2;
+  --risk-medio-fg:      #723b13;
+  --risk-medio-border:  #f8e287;
+  --risk-leve-bg:       #d9f3e1;
+  --risk-leve-fg:       #0a5c1e;
+  --risk-leve-border:   #a3d9b1;
+
+  --font: 'Inter', -apple-system, system-ui, 'Segoe UI', Helvetica, sans-serif;
+
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+}
+
+/* === RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--surface-soft);
+  min-height: 100vh;
+  padding: 40px 20px 60px;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.page-header {
+  max-width: 800px;
+  margin: 0 auto 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logo-mark img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.report-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+/* ============================================================
+   BANNER DE RISCO
+   ============================================================ */
+.risk-banner {
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  border: 1px solid transparent;
+}
+
+.risk-banner.alto  { background: var(--risk-alto-bg);  color: var(--risk-alto-fg);  border-color: var(--risk-alto-border);  }
+.risk-banner.medio { background: var(--risk-medio-bg); color: var(--risk-medio-fg); border-color: var(--risk-medio-border); }
+.risk-banner.leve  { background: var(--risk-leve-bg);  color: var(--risk-leve-fg);  border-color: var(--risk-leve-border);  }
+
+.risk-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background: rgba(255,255,255,0.45);
+}
+
+.risk-content { flex: 1; }
+
+.risk-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.risk-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.risk-desc {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   SCORES
+   ============================================================ */
+.scores-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.score-block {
+  flex: 1;
+  min-width: 120px;
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.score-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 12px;
+  color: var(--stone);
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   GRÁFICO
+   ============================================================ */
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   RECOMENDAÇÃO
+   ============================================================ */
+.recommendation {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.rec-dot.alto  { background: var(--risk-alto-fg); }
+.rec-dot.medio { background: var(--risk-medio-fg); }
+.rec-dot.leve  { background: var(--risk-leve-fg); }
+
+.rec-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.rec-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ============================================================
+   OBSERVAÇÕES
+   ============================================================ */
+.obs-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.6;
+  min-height: 60px;
+  font-style: italic;
+}
+
+.obs-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ============================================================
+   RODAPÉ DO RELATÓRIO
+   ============================================================ */
+.report-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--stone);
+  padding-top: 8px;
+}
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+.btn-primary {
+  height: 36px;
+  padding: 0 18px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.btn-primary:hover  { background: var(--primary-pressed); }
+
+.btn-secondary {
+  height: 36px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.btn-secondary:hover { background: var(--surface); }
+
+/* ============================================================
+   ESTADO DE ERRO
+   ============================================================ */
+.error-state {
+  max-width: 480px;
+  margin: 80px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--stone);
+}
+
+.error-state h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.error-state p {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   IMPRESSÃO
+   ============================================================ */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  .header-actions {
+    display: none !important;
+  }
+
+  .card,
+  .risk-banner {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .report-wrapper {
+    gap: 12px;
+  }
+
+  .report-footer {
+    margin-top: 16px;
+  }
+}
