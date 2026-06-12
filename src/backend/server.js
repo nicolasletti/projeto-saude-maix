@@ -9,6 +9,7 @@ const logar    = require('./controllers/logar');
 const logado   = require('./controllers/logado');
 const deslogar = require('./controllers/deslogado');
 const { cadastrar, listar, buscarResponsavel } = require('./controllers/pacientes');
+const salvarTriagem = require('./controllers/salvarTriagem');
 
 const app = express();
 
@@ -29,9 +30,19 @@ app.get('/privado', logado, (req, res) => {
   res.send(`Bem-vindo, ${req.usuario.nome}!`);
 });
 
+// Retorna os dados do usuário logado
+app.get('/api/users/usuario-logado', logado, (req, res) => {
+  res.json({
+    nome: req.usuario.nome,
+    email: req.usuario.email,
+    perfil: req.usuario.perfil
+  });
+});
+
 // Rotas de autenticação
 app.post('/api/users/logar',   logar);
 app.get('/api/users/deslogar', deslogar);
+app.post('/api/triagem', logado, salvarTriagem);
 
 // Rotas de pacientes (protegidas)
 app.post('/api/pacientes',     logado, cadastrar);

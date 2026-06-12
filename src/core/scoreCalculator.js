@@ -54,4 +54,8 @@ function calcularRisco(sexo, sintomasPresentes) {
         encaminhar: encaminharParaExame,
         nivelDeRisco: nivelDeRisco
     };
+
+    if (typeof module !== 'undefined' && module.exports) {
+    module.exports = calcularRisco;}
 }
+module.exports = calcularRisco;  

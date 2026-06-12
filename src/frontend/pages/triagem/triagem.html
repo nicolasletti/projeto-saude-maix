@@ -8,15 +8,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Suprime o erro 404 de favicon -->
+    <link rel="icon" href="data:,">
 </head>
 <body>
 
 <div class="container">
     <h2>Saúde MaiX<br><small>Ficha de Triagem Clínica</small></h2>
 
+    <!-- PACIENTE: input com datalist para busca por digitação -->
+    <div class="form-group">
+        <label for="busca_paciente">Selecione o Paciente:</label>
+        <input
+            type="text"
+            id="busca_paciente"
+            list="lista_pacientes"
+            placeholder="Digite o nome ou ID para pesquisar..."
+            autocomplete="off"
+        >
+        <datalist id="lista_pacientes"></datalist>
+        <!-- ID do paciente armazenado aqui; não exibido ao usuário -->
+        <input type="hidden" id="paciente_id_selecionado">
+    </div>
+
+    <!-- SEXO: preenchido automaticamente ao selecionar paciente -->
     <div class="form-group">
         <label for="sexo">Sexo Biológico do Paciente:</label>
         <select id="sexo" onchange="ajustarCamposPorSexo()">
+            <option value="">— preenchido automaticamente ao selecionar o paciente —</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
         </select>
@@ -25,11 +44,13 @@
     <div class="form-group">
         <label>Indicadores Clínicos Presentes (Pontuados):</label>
         <div class="sintomas-lista" id="lista-sintomas">
-            
+
             <div class="sintoma-item">
                 <input type="checkbox" id="face_alongada" value="face_alongada">
                 <label for="face_alongada">Face alongada / Orelhas proeminentes</label>
             </div>
+
+            <!-- Visível apenas para pacientes do sexo masculino -->
             <div class="sintoma-item" id="div_macroorquidismo">
                 <input type="checkbox" id="macroorquidismo" value="macroorquidismo">
                 <label for="macroorquidismo">Macroorquidismo (Tamanho incomum dos testículos após pré-adolescência)</label>
@@ -89,13 +110,14 @@
 
     <div class="form-group secao-complementar">
         <label>Histórico Familiar e Complementos (Não alteram o score):</label>
-        
+
         <div class="sintomas-lista">
             <div class="sintoma-item">
                 <input type="checkbox" id="problemas_renais" value="sim">
                 <label for="problemas_renais">Possui ou tem histórico familiar de problemas renais?</label>
             </div>
 
+            <!-- Visível apenas para pacientes do sexo feminino -->
             <div class="sintoma-item oculto" id="pergunta_infertilidade">
                 <input type="checkbox" id="infertilidade" value="sim">
                 <label for="infertilidade">Você ou alguma mulher da família é infértil ou teve menopausa precoce?</label>
@@ -113,8 +135,7 @@
     <div id="resultado"></div>
 </div>
 
-<script src="../../../core/scoreCalculator.js"></script>
-<script src="triagem.js?v=2"></script>
+<script src="triagem.js?v=4"></script>
 
 </body>
 </html>
