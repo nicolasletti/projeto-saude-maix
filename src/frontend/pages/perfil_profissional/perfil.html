@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil Profissional — Saúde MaiX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="perfil.css">
@@ -101,6 +102,13 @@
         <!-- Card avatar + nome -->
         <div class="form-card perfil-avatar-card">
           <div class="avatar-grande" id="avatar-grande">—</div>
+
+          <input type="file" id="input-foto" accept="image/*" hidden>
+          <div class="avatar-actions">
+            <button type="button" class="btn-secondary btn-sm" id="btn-alterar-foto">Alterar foto</button>
+            <button type="button" class="btn-link" id="btn-remover-foto" hidden>Remover</button>
+          </div>
+
           <h2 class="perfil-nome" id="perfil-nome">—</h2>
           <span class="perfil-cargo" id="perfil-cargo">—</span>
           <span class="perfil-email-sub" id="perfil-email-sub">—</span>

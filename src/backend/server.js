@@ -11,11 +11,12 @@ const deslogar = require('./controllers/deslogado');
 const { cadastrar, listar, buscarResponsavel, buscar: buscarPaciente, atualizar, excluir } = require('./controllers/pacientes');
 const salvarTriagem = require('./controllers/salvarTriagem');
 const { listar: listarRelatorios, buscar: buscarRelatorio } = require('./controllers/relatorios');
+const { usuarioLogado, salvarFoto, removerFoto } = require('./controllers/perfil');
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
 app.use(cookieParser());
 
 // Serve os arquivos estáticos do frontend
@@ -31,14 +32,12 @@ app.get('/privado', logado, (req, res) => {
   res.send(`Bem-vindo, ${req.usuario.nome}!`);
 });
 
-// Retorna os dados do usuário logado
-app.get('/api/users/usuario-logado', logado, (req, res) => {
-  res.json({
-    nome: req.usuario.nome,
-    email: req.usuario.email,
-    perfil: req.usuario.perfil
-  });
-});
+// Retorna os dados do usuário logado (inclui a foto de perfil)
+app.get('/api/users/usuario-logado', logado, usuarioLogado);
+
+// Foto de perfil do profissional logado
+app.post('/api/users/foto',   logado, salvarFoto);
+app.delete('/api/users/foto', logado, removerFoto);
 
 // Rotas de autenticação
 app.post('/api/users/logar',   logar);

@@ -162,6 +162,16 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.user-avatar img,
+.avatar-grande img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
 }
 
 .user-info { flex: 1; min-width: 0; }
@@ -319,7 +329,31 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  overflow: hidden;
 }
+
+.avatar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--semantic-error, #e03131);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: var(--radius-xs);
+}
+
+.btn-link:hover { background: #fde8e8; }
+
+.btn-link[hidden] { display: none; }
 
 .perfil-nome {
   font-size: 20px;
