@@ -8,7 +8,7 @@ require('dotenv').config();
 const logar    = require('./controllers/logar');
 const logado   = require('./controllers/logado');
 const deslogar = require('./controllers/deslogado');
-const { cadastrar, listar, buscarResponsavel } = require('./controllers/pacientes');
+const { cadastrar, listar, buscarResponsavel, buscar: buscarPaciente, atualizar, excluir } = require('./controllers/pacientes');
 const salvarTriagem = require('./controllers/salvarTriagem');
 const { listar: listarRelatorios, buscar: buscarRelatorio } = require('./controllers/relatorios');
 
@@ -46,9 +46,12 @@ app.get('/api/users/deslogar', deslogar);
 app.post('/api/triagem', logado, salvarTriagem);
 
 // Rotas de pacientes (protegidas)
-app.post('/api/pacientes',     logado, cadastrar);
-app.get('/api/pacientes',      logado, listar);
-app.get('/api/responsaveis',   logado, buscarResponsavel);
+app.post('/api/pacientes',       logado, cadastrar);
+app.get('/api/pacientes',        logado, listar);
+app.get('/api/pacientes/:id',    logado, buscarPaciente);
+app.put('/api/pacientes/:id',    logado, atualizar);
+app.delete('/api/pacientes/:id', logado, excluir);
+app.get('/api/responsaveis',     logado, buscarResponsavel);
 
 // Rotas de relatórios (protegidas)
 app.get('/api/relatorios',     logado, listarRelatorios);

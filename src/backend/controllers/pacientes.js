@@ -97,4 +97,80 @@ async function listar(req, res) {
   }
 }
 
-module.exports = { cadastrar, listar, buscarResponsavel };
+async function buscar(req, res) {
+  const id = parseInt(req.params.id, 10);
+  if (!id || isNaN(id)) return res.status(400).json({ erro: 'ID de paciente inválido.' });
+  try {
+    const r = await db.query(
+      `SELECT p.id_paciente, p.nome_completo, p.cpf, p.data_nascimento,
+              p.sexo_biologico, p.endereco
+       FROM saude_maix.Paciente p
+       WHERE p.id_paciente = $1`,
+      [id]
+    );
+    if (r.rows.length === 0) return res.status(404).json({ erro: 'Paciente não encontrado.' });
+    return res.status(200).json(r.rows[0]);
+  } catch (err) {
+    console.error('Erro ao buscar paciente:', err.message);
+    return res.status(500).json({ erro: 'Erro interno do servidor.' });
+  }
+}
+
+async function atualizar(req, res) {
+  const id = parseInt(req.params.id, 10);
+  if (!id || isNaN(id)) return res.status(400).json({ erro: 'ID de paciente inválido.' });
+
+  const { pac } = req.body;
+  if (!pac?.nome || !pac?.cpf || !pac?.nascimento || !pac?.sexo) {
+    return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios do paciente.' });
+  }
+  pac.cpf = normalizarCPF(pac.cpf);
+
+  try {
+    const r = await db.query(
+      `UPDATE saude_maix.Paciente
+          SET nome_completo = $1, cpf = $2, data_nascimento = $3,
+              sexo_biologico = $4, endereco = $5
+        WHERE id_paciente = $6
+        RETURNING id_paciente`,
+      [pac.nome, pac.cpf, pac.nascimento, pac.sexo, pac.endereco || null, id]
+    );
+    if (r.rows.length === 0) return res.status(404).json({ erro: 'Paciente não encontrado.' });
+    return res.status(200).json({ mensagem: 'Paciente atualizado com sucesso!' });
+  } catch (err) {
+    if (err.code === '23505') {
+      return res.status(409).json({ erro: 'CPF já cadastrado para outro paciente.' });
+    }
+    console.error('Erro ao atualizar paciente:', err.message);
+    return res.status(500).json({ erro: 'Erro interno do servidor.' });
+  }
+}
+
+async function excluir(req, res) {
+  const id = parseInt(req.params.id, 10);
+  if (!id || isNaN(id)) return res.status(400).json({ erro: 'ID de paciente inválido.' });
+
+  try {
+    const historico = await db.query(
+      'SELECT 1 FROM saude_maix.Triagem WHERE id_paciente = $1 LIMIT 1',
+      [id]
+    );
+    if (historico.rows.length > 0) {
+      return res.status(409).json({
+        erro: 'Não é possível excluir: o paciente possui triagens/relatórios no histórico.'
+      });
+    }
+
+    const r = await db.query(
+      'DELETE FROM saude_maix.Paciente WHERE id_paciente = $1 RETURNING id_paciente',
+      [id]
+    );
+    if (r.rows.length === 0) return res.status(404).json({ erro: 'Paciente não encontrado.' });
+    return res.status(200).json({ mensagem: 'Paciente excluído com sucesso!' });
+  } catch (err) {
+    console.error('Erro ao excluir paciente:', err.message);
+    return res.status(500).json({ erro: 'Erro interno do servidor.' });
+  }
+}
+
+module.exports = { cadastrar, listar, buscarResponsavel, buscar, atualizar, excluir };

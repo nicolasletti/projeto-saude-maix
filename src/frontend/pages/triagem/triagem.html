@@ -6,6 +6,7 @@
     <title>Saúde MaiX - Ficha de Triagem</title>
     <link rel="stylesheet" href="triagem.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="data:,">
@@ -30,11 +31,12 @@
 
     <div class="form-group">
         <label for="sexo">Sexo Biológico do Paciente:</label>
-        <select id="sexo" onchange="ajustarCamposPorSexo()">
-            <option value="">— preenchido automaticamente ao selecionar o paciente —</option>
+        <select id="sexo" disabled>
+            <option value="">— definido no cadastro do paciente —</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
         </select>
+        <small class="campo-dica">O sexo vem do cadastro do paciente. Para alterá-lo, use "Editar" em Meus Pacientes.</small>
     </div>
 
     <div class="form-group">

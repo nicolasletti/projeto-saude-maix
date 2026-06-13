@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Saúde MaiX — Painel</title>
+  <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -240,6 +241,88 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- MENU DE AÇÕES (⋮) — compartilhado, posicionado via JS -->
+  <div id="kebab-menu" class="kebab-menu" hidden>
+    <button type="button" class="kebab-item" data-acao="triagem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+      Triagem
+    </button>
+    <button type="button" class="kebab-item" data-acao="editar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      Editar
+    </button>
+    <button type="button" class="kebab-item danger" data-acao="excluir">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        <line x1="10" y1="11" x2="10" y2="17"/>
+        <line x1="14" y1="11" x2="14" y2="17"/>
+      </svg>
+      Excluir
+    </button>
+  </div>
+
+  <!-- MODAL: EDITAR PACIENTE -->
+  <div id="modal-editar" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <div class="modal-header">
+        <h2 id="modal-titulo" class="modal-title">Editar Paciente</h2>
+        <button type="button" class="modal-close" id="btn-fechar-modal" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="edit-id">
+        <div class="form-row form-row-2">
+          <div class="form-field" style="flex:2">
+            <label for="edit-nome">Nome completo <span class="obrigatorio">*</span></label>
+            <input type="text" id="edit-nome" placeholder="Ex: Maria da Silva">
+          </div>
+          <div class="form-field" style="flex:1">
+            <label for="edit-cpf">CPF <span class="obrigatorio">*</span></label>
+            <input type="text" id="edit-cpf" placeholder="000.000.000-00" maxlength="14">
+          </div>
+        </div>
+        <div class="form-row form-row-2">
+          <div class="form-field">
+            <label for="edit-nascimento">Data de nascimento <span class="obrigatorio">*</span></label>
+            <input type="date" id="edit-nascimento">
+          </div>
+          <div class="form-field">
+            <label for="edit-sexo">Sexo biológico <span class="obrigatorio">*</span></label>
+            <select id="edit-sexo">
+              <option value="" disabled>Selecione</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="edit-endereco">Endereço</label>
+            <input type="text" id="edit-endereco" placeholder="Opcional">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="btn-cancelar-edicao">Cancelar</button>
+        <button type="button" class="btn-primary" id="btn-salvar-edicao">Salvar alterações</button>
+      </div>
     </div>
   </div>
 

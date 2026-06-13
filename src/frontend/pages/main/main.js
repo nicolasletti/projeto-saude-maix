@@ -206,7 +206,7 @@ async function carregarPacientes() {
           <td>${nascimento}</td>
           <td>${sexo}</td>
           <td>${p.nome_responsavel}</td>
-          <td><button class="btn-secondary btn-sm" onclick="window.location.href='/pages/triagem/triagem.html?id=${p.id_paciente}'">Triagem</button></td>
+          <td><button class="kebab-btn" data-id="${p.id_paciente}" data-nome="${p.nome_completo.replace(/"/g, '&quot;')}" aria-label="Ações">&#8942;</button></td>
         </tr>`;
     }).join('');
   } catch {
@@ -219,6 +219,118 @@ function buscarPacientes() {
   document.querySelectorAll('#tabela-pacientes tr:not(.empty-row)').forEach(tr => {
     tr.style.display = tr.textContent.toLowerCase().includes(termo) ? '' : 'none';
   });
+}
+
+/* === MENU DE AÇÕES (⋮) === */
+let kebabAtual = { id: null, nome: '' };
+
+function abrirKebab(btn) {
+  const menu = document.getElementById('kebab-menu');
+  kebabAtual = { id: btn.dataset.id, nome: btn.dataset.nome };
+
+  // Posiciona o menu (fixed) alinhado à direita do botão.
+  menu.hidden = false;
+  const r = btn.getBoundingClientRect();
+  const largura = menu.offsetWidth;
+  let left = r.right - largura;
+  if (left < 8) left = 8;
+  let top = r.bottom + 4;
+  // Se não couber abaixo, abre acima do botão.
+  if (top + menu.offsetHeight > window.innerHeight - 8) {
+    top = r.top - menu.offsetHeight - 4;
+  }
+  menu.style.left = `${left}px`;
+  menu.style.top  = `${top}px`;
+}
+
+function fecharKebab() {
+  document.getElementById('kebab-menu').hidden = true;
+  kebabAtual = { id: null, nome: '' };
+}
+
+async function excluirPaciente(id, nome) {
+  if (!confirm(`Excluir o paciente "${nome}"? Esta ação não pode ser desfeita.`)) return;
+  try {
+    const res  = await fetch(`/api/pacientes/${id}`, { method: 'DELETE' });
+    const json = await res.json();
+    if (res.ok) {
+      showToast(json.mensagem || 'Paciente excluído com sucesso!', 'success');
+      carregarPacientes();
+    } else {
+      showToast(json.erro || 'Erro ao excluir paciente.', 'error');
+    }
+  } catch {
+    showToast('Erro de conexão com o servidor.', 'error');
+  }
+}
+
+/* === MODAL DE EDIÇÃO === */
+function abrirModalEdicao() {
+  document.getElementById('modal-editar').hidden = false;
+}
+
+function fecharModalEdicao() {
+  document.getElementById('modal-editar').hidden = true;
+}
+
+async function abrirEdicao(id) {
+  try {
+    const res  = await fetch(`/api/pacientes/${id}`);
+    const json = await res.json();
+    if (!res.ok) {
+      showToast(json.erro || 'Erro ao carregar o paciente.', 'error');
+      return;
+    }
+    document.getElementById('edit-id').value         = json.id_paciente;
+    document.getElementById('edit-nome').value       = json.nome_completo || '';
+    document.getElementById('edit-cpf').value        = mascaraCPF(json.cpf || '');
+    document.getElementById('edit-nascimento').value = (json.data_nascimento || '').slice(0, 10);
+    document.getElementById('edit-sexo').value       = json.sexo_biologico || '';
+    document.getElementById('edit-endereco').value   = json.endereco || '';
+    abrirModalEdicao();
+  } catch {
+    showToast('Erro de conexão com o servidor.', 'error');
+  }
+}
+
+async function salvarEdicao() {
+  const id = document.getElementById('edit-id').value;
+  const pac = {
+    nome:       document.getElementById('edit-nome').value.trim(),
+    cpf:        document.getElementById('edit-cpf').value.trim(),
+    nascimento: document.getElementById('edit-nascimento').value,
+    sexo:       document.getElementById('edit-sexo').value,
+    endereco:   document.getElementById('edit-endereco').value.trim(),
+  };
+  if (!pac.nome || !pac.cpf || !pac.nascimento || !pac.sexo) {
+    showToast('Preencha todos os campos obrigatórios do paciente.', 'error');
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/pacientes/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pac }),
+    });
+    const json = await res.json();
+    if (res.ok) {
+      fecharModalEdicao();
+      showToast(json.mensagem || 'Paciente atualizado com sucesso!', 'success');
+      carregarPacientes();
+    } else {
+      showToast(json.erro || 'Erro ao atualizar paciente.', 'error');
+    }
+  } catch {
+    showToast('Erro de conexão com o servidor.', 'error');
+  }
+}
+
+// Aplica a foto (data URL) no avatar, ou a inicial como fallback.
+function aplicarAvatar(el, foto, inicial) {
+  if (!el) return;
+  if (foto) el.innerHTML = `<img src="${foto}" alt="Foto de perfil">`;
+  else el.textContent = inicial;
 }
 
 function deslogar() {
@@ -245,6 +357,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('busca-input')?.addEventListener('input', buscarPacientes);
 
+  // Menu de ações (⋮): abre ao clicar no kebab de uma linha
+  document.getElementById('tabela-pacientes')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.kebab-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const menu = document.getElementById('kebab-menu');
+    const jaAberto = !menu.hidden && kebabAtual.id === btn.dataset.id;
+    if (jaAberto) { fecharKebab(); return; }
+    abrirKebab(btn);
+  });
+
+  // Ações dentro do menu ⋮
+  document.querySelectorAll('#kebab-menu .kebab-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const { id, nome } = kebabAtual;
+      const acao = item.dataset.acao;
+      fecharKebab();
+      if (!id) return;
+      if (acao === 'triagem') window.location.href = `/pages/triagem/triagem.html?id=${id}`;
+      else if (acao === 'editar') abrirEdicao(id);
+      else if (acao === 'excluir') excluirPaciente(id, nome);
+    });
+  });
+
+  // Fecha o menu ⋮ ao clicar fora, rolar ou redimensionar
+  document.addEventListener('click', () => fecharKebab());
+  window.addEventListener('scroll', () => fecharKebab(), true);
+  window.addEventListener('resize', () => fecharKebab());
+
+  // Modal de edição
+  document.getElementById('btn-salvar-edicao')?.addEventListener('click', salvarEdicao);
+  document.getElementById('btn-cancelar-edicao')?.addEventListener('click', fecharModalEdicao);
+  document.getElementById('btn-fechar-modal')?.addEventListener('click', fecharModalEdicao);
+  document.getElementById('modal-editar')?.addEventListener('click', (e) => {
+    if (e.target.id === 'modal-editar') fecharModalEdicao();
+  });
+  document.getElementById('edit-cpf')?.addEventListener('input', e => {
+    e.target.value = mascaraCPF(e.target.value);
+  });
+
+  // Esc fecha menu/modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    fecharKebab();
+    fecharModalEdicao();
+  });
+
   // Máscaras de formatação
   ['pac-cpf', 'resp-cpf'].forEach(id => {
     document.getElementById(id)?.addEventListener('input', e => {
@@ -270,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(u => {
       document.getElementById('user-nome').textContent  = u.nome;
       document.getElementById('user-perfil').textContent = u.perfil || '—';
-      document.getElementById('avatar-inicial').textContent = u.nome?.charAt(0).toUpperCase() || 'A';
+      aplicarAvatar(document.getElementById('avatar-inicial'), u.foto, u.nome?.charAt(0).toUpperCase() || 'A');
     })
     .catch(() => {});
 

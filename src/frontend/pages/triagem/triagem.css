@@ -127,6 +127,22 @@ input[type="text"]:focus {
   border: 2px solid var(--primary);
 }
 
+select:disabled {
+  background-color: var(--surface);
+  color: var(--charcoal);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.campo-dica {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--stone);
+}
+
 .sintomas-lista {
   display: flex;
   flex-direction: column;
