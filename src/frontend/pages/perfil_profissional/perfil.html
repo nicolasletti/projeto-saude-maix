@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saúde MaiX — Relatórios</title>
+  <title>Perfil Profissional — Saúde MaiX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" r
-  1el="stylesheet">
-  <link rel="stylesheet" href="relatorio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="perfil.css">
 </head>
 <body>
 
@@ -27,7 +26,7 @@
     <nav class="sidebar-nav">
       <span class="nav-section-label">Menu</span>
 
-      <button class="nav-item" data-href="/pages/main/main.html">
+      <button class="nav-item" onclick="window.location.href='/pages/main/main.html'">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
           <circle cx="9" cy="7" r="4"/>
@@ -37,7 +36,7 @@
         Novo Paciente
       </button>
 
-      <button class="nav-item" data-href="/pages/main/main.html">
+      <button class="nav-item" onclick="window.location.href='/pages/main/main.html'">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
           <circle cx="9" cy="7" r="4"/>
@@ -47,7 +46,7 @@
         Meus Pacientes
       </button>
 
-      <button class="nav-item" data-href="/pages/triagem/triagem.html">
+      <button class="nav-item" onclick="window.location.href='/pages/triagem/triagem.html'">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
           <rect x="9" y="3" width="6" height="4" rx="1"/>
@@ -56,7 +55,7 @@
         Triagem
       </button>
 
-      <button class="nav-item active" data-href="/pages/relatorio/relatorio.html">
+      <button class="nav-item" onclick="window.location.href='/pages/relatorio/relatorio.html'">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="20" x2="18" y2="10"/>
           <line x1="12" y1="20" x2="12" y2="4"/>
@@ -68,8 +67,8 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="user-card" id="user-card-perfil" title="Ver perfil" style="cursor:pointer;">
-        <div class="user-avatar" id="avatar-inicial">A</div>
+      <div class="user-card active-perfil">
+        <div class="user-avatar" id="avatar-inicial">—</div>
         <div class="user-info">
           <div class="user-nome" id="user-nome">—</div>
           <div class="user-perfil" id="user-perfil">—</div>
@@ -91,61 +90,62 @@
     <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
-        <h1 class="topbar-title">Relatórios</h1>
-        <p class="topbar-sub">Pacientes com relatório de triagem gerado</p>
+        <h1 class="topbar-title">Meu Perfil</h1>
+        <p class="topbar-sub">Informações do profissional logado</p>
       </div>
     </header>
 
     <!-- CONTEÚDO -->
     <div class="content">
+      <div class="perfil-grid">
 
-      <div class="pane active">
-        <div class="lista-header">
-          <div class="search-pill">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="busca-input" placeholder="Buscar por nome...">
+        <!-- Card avatar + nome -->
+        <div class="form-card perfil-avatar-card">
+          <div class="avatar-grande" id="avatar-grande">—</div>
+
+          <input type="file" id="input-foto" accept="image/*" hidden>
+          <div class="avatar-actions">
+            <button type="button" class="btn-secondary btn-sm" id="btn-alterar-foto">Alterar foto</button>
+            <button type="button" class="btn-link" id="btn-remover-foto" hidden>Remover</button>
           </div>
-          <button class="btn-secondary" id="btn-atualizar">Atualizar</button>
+
+          <h2 class="perfil-nome" id="perfil-nome">—</h2>
+          <span class="perfil-cargo" id="perfil-cargo">—</span>
+          <span class="perfil-email-sub" id="perfil-email-sub">—</span>
         </div>
 
-        <div class="table-wrapper">
-          <table class="patients-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Sexo</th>
-                <th>Data da triagem</th>
-                <th>Nível de risco</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="tabela-relatorios">
-              <tr class="empty-row">
-                <td colspan="6">
-                  <div class="empty-state">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="20" x2="18" y2="10"/>
-                      <line x1="12" y1="20" x2="12" y2="4"/>
-                      <line x1="6" y1="20" x2="6" y2="14"/>
-                      <line x1="2" y1="20" x2="22" y2="20"/>
-                    </svg>
-                    <p>Nenhum relatório encontrado</p>
-                    <span>Realize uma triagem para gerar relatórios</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Card dados profissionais -->
+        <div class="form-card">
+          <h2 class="form-section-title">Dados Profissionais</h2>
+
+          <div class="info-row">
+            <span class="info-label">Nome</span>
+            <span class="info-value" id="dado-nome">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Cargo / Função</span>
+            <span class="info-value" id="dado-cargo">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">E-mail</span>
+            <span class="info-value" id="dado-email">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Registro Profissional</span>
+            <span class="info-value" id="dado-registro">Não informado</span>
+          </div>
+
+          <div class="form-actions" style="margin-top: 24px;">
+            <button class="btn-secondary" onclick="window.location.href='/pages/main/main.html'">
+              Voltar ao Painel
+            </button>
+          </div>
         </div>
+
       </div>
-
     </div>
   </div>
 
-  <script src="relatorio.js"></script>
+  <script src="perfil.js"></script>
 </body>
 </html>

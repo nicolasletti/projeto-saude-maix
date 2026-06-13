@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saúde MaiX - Ficha de Triagem</title>
+    <link rel="stylesheet" href="triagem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+
+<div class="container">
+    <h2>Saúde MaiX<br><small>Ficha de Triagem Clínica</small></h2>
+
+    <div class="form-group">
+        <label for="busca_paciente">Selecione o Paciente:</label>
+        <input
+            type="text"
+            id="busca_paciente"
+            list="lista_pacientes"
+            placeholder="Digite o nome ou ID para pesquisar..."
+            autocomplete="off"
+        >
+        <datalist id="lista_pacientes"></datalist>
+        <input type="hidden" id="paciente_id_selecionado">
+    </div>
+
+    <div class="form-group">
+        <label for="sexo">Sexo Biológico do Paciente:</label>
+        <select id="sexo" disabled>
+            <option value="">— definido no cadastro do paciente —</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+        <small class="campo-dica">O sexo vem do cadastro do paciente. Para alterá-lo, use "Editar" em Meus Pacientes.</small>
+    </div>
+
+    <div class="form-group">
+        <label>Indicadores Clínicos Presentes (Pontuados):</label>
+        <div class="sintomas-lista" id="lista-sintomas">
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="face_alongada" value="face_alongada">
+                <label for="face_alongada">Face alongada / Orelhas proeminentes</label>
+            </div>
+
+            <div class="sintoma-item" id="div_macroorquidismo">
+                <input type="checkbox" id="macroorquidismo" value="macroorquidismo">
+                <label for="macroorquidismo">Macroorquidismo (Tamanho incomum dos testículos após pré-adolescência)</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="hipermobilidade" value="hipermobilidade">
+                <label for="hipermobilidade">Hipermobilidade articular</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="deficiencia_intelectual" value="deficiencia_intelectual">
+                <label for="deficiencia_intelectual">Deficiência Intelectual</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="dificuldade_aprendizagem" value="dificuldade_aprendizagem">
+                <label for="dificuldade_aprendizagem">Dificuldades de aprendizagem</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="deficit_atencao" value="deficit_atencao">
+                <label for="deficit_atencao">Déficit de atenção</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="movimentos_repetitivos" value="movimentos_repetitivos">
+                <label for="movimentos_repetitivos">Movimentos repetitivos</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="atraso_fala" value="atraso_fala">
+                <label for="atraso_fala">Atraso na fala</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="hiperatividade" value="hiperatividade">
+                <label for="hiperatividade">Hiperatividade</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="evita_contato_visual" value="evita_contato_visual">
+                <label for="evita_contato_visual">Evita contato visual</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="evita_contato_fisico" value="evita_contato_fisico">
+                <label for="evita_contato_fisico">Evita contato físico</label>
+            </div>
+
+            <div class="sintoma-item">
+                <input type="checkbox" id="agressividade" value="agressividade">
+                <label for="agressividade">Agressividade</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group secao-complementar">
+        <label>Histórico Familiar e Complementos (Não alteram o score):</label>
+
+        <div class="sintomas-lista">
+            <div class="sintoma-item">
+                <input type="checkbox" id="problemas_renais" value="sim">
+                <label for="problemas_renais">Possui ou tem histórico familiar de problemas renais?</label>
+            </div>
+
+            <div class="sintoma-item oculto" id="pergunta_infertilidade">
+                <input type="checkbox" id="infertilidade" value="sim">
+                <label for="infertilidade">Você ou alguma mulher da família é infértil ou teve menopausa precoce?</label>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <label for="outros_problemas">Outros problemas de saúde ou observações:</label>
+            <textarea id="outros_problemas" rows="4" placeholder="Descreva aqui qualquer outro sintoma ou condição relevante..."></textarea>
+        </div>
+    </div>
+
+    <button id="btn-calcular" onclick="processarTriagem()">Calcular Risco e Gerar Relatório</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script src="triagem.js?v=4"></script>
+
+</body>
+</html>

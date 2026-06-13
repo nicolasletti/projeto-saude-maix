@@ -8,12 +8,15 @@ require('dotenv').config();
 const logar    = require('./controllers/logar');
 const logado   = require('./controllers/logado');
 const deslogar = require('./controllers/deslogado');
-const { cadastrar, listar, buscarResponsavel } = require('./controllers/pacientes');
+const { cadastrar, listar, buscarResponsavel, buscar: buscarPaciente, atualizar, excluir } = require('./controllers/pacientes');
+const salvarTriagem = require('./controllers/salvarTriagem');
+const { listar: listarRelatorios, buscar: buscarRelatorio } = require('./controllers/relatorios');
+const { usuarioLogado, salvarFoto, removerFoto } = require('./controllers/perfil');
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
 app.use(cookieParser());
 
 // Serve os arquivos estáticos do frontend
@@ -29,14 +32,29 @@ app.get('/privado', logado, (req, res) => {
   res.send(`Bem-vindo, ${req.usuario.nome}!`);
 });
 
+// Retorna os dados do usuário logado (inclui a foto de perfil)
+app.get('/api/users/usuario-logado', logado, usuarioLogado);
+
+// Foto de perfil do profissional logado
+app.post('/api/users/foto',   logado, salvarFoto);
+app.delete('/api/users/foto', logado, removerFoto);
+
 // Rotas de autenticação
 app.post('/api/users/logar',   logar);
 app.get('/api/users/deslogar', deslogar);
+app.post('/api/triagem', logado, salvarTriagem);
 
 // Rotas de pacientes (protegidas)
-app.post('/api/pacientes',     logado, cadastrar);
-app.get('/api/pacientes',      logado, listar);
-app.get('/api/responsaveis',   logado, buscarResponsavel);
+app.post('/api/pacientes',       logado, cadastrar);
+app.get('/api/pacientes',        logado, listar);
+app.get('/api/pacientes/:id',    logado, buscarPaciente);
+app.put('/api/pacientes/:id',    logado, atualizar);
+app.delete('/api/pacientes/:id', logado, excluir);
+app.get('/api/responsaveis',     logado, buscarResponsavel);
+
+// Rotas de relatórios (protegidas)
+app.get('/api/relatorios',     logado, listarRelatorios);
+app.get('/api/relatorios/:id', logado, buscarRelatorio);
 
 // Rota de diagnóstico temporária — lista responsáveis sem paciente vinculado
 app.get('/api/debug/responsaveis-orfaos', logado, async (req, res) => {

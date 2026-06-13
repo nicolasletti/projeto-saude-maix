@@ -117,3 +117,8 @@ COPY Indicador_Triagem FROM 'C:/Temp/indicador_triagem.csv' WITH (FORMAT csv, HE
 COPY Relatorio FROM 'C:/Temp/relatorio.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');
 COPY Prontuario FROM 'C:/Temp/prontuario.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',');
 
+
+-- Foto de perfil do profissional (data URL base64). Adicionada após o COPY
+-- para não exigir a coluna no CSV de carga.
+ALTER TABLE Profissional ADD COLUMN IF NOT EXISTS foto TEXT;
+
