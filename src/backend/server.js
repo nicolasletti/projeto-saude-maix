@@ -10,6 +10,7 @@ const logado   = require('./controllers/logado');
 const deslogar = require('./controllers/deslogado');
 const { cadastrar, listar, buscarResponsavel } = require('./controllers/pacientes');
 const salvarTriagem = require('./controllers/salvarTriagem');
+const { listar: listarRelatorios, buscar: buscarRelatorio } = require('./controllers/relatorios');
 
 const app = express();
 
@@ -48,6 +49,10 @@ app.post('/api/triagem', logado, salvarTriagem);
 app.post('/api/pacientes',     logado, cadastrar);
 app.get('/api/pacientes',      logado, listar);
 app.get('/api/responsaveis',   logado, buscarResponsavel);
+
+// Rotas de relatórios (protegidas)
+app.get('/api/relatorios',     logado, listarRelatorios);
+app.get('/api/relatorios/:id', logado, buscarRelatorio);
 
 // Rota de diagnóstico temporária — lista responsáveis sem paciente vinculado
 app.get('/api/debug/responsaveis-orfaos', logado, async (req, res) => {
