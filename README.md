@@ -5,6 +5,11 @@ Sistema web de apoio à triagem clínica para a **Síndrome do X Frágil (SXF)**
 O sistema permite que profissionais de saúde cadastrem pacientes, apliquem um checklist clínico com 12 indicadores validados e obtenham uma recomendação baseada em score ponderado por Random Forest.
  
 ---
+
+link do vídeo mostrando o sistema funcionando:
+https://youtu.be/sDMBUjlPSm4
+
+---
  
 ## Índice
  
