@@ -1,8 +1,35 @@
 let pacientesNaMemoria = [];
 
+// Aplica a foto (data URL) no avatar, ou a inicial como fallback.
+function aplicarAvatar(el, foto, inicial) {
+    if (!el) return;
+    if (foto) el.innerHTML = `<img src="${foto}" alt="Foto de perfil">`;
+    else el.textContent = inicial;
+}
+
+function carregarUsuarioLogado() {
+    fetch('/api/users/usuario-logado')
+        .then(r => r.json())
+        .then(u => {
+            document.getElementById('user-nome').textContent  = u.nome;
+            document.getElementById('user-perfil').textContent = u.perfil || '—';
+            aplicarAvatar(document.getElementById('avatar-inicial'), u.foto, u.nome?.charAt(0).toUpperCase() || 'A');
+        })
+        .catch(() => {});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarPacientes();
+    carregarUsuarioLogado();
     document.getElementById('busca_paciente').addEventListener('change', preencherSexoAutomatico);
+
+    document.getElementById('btn-sair')?.addEventListener('click', () => {
+        window.location.href = '/api/users/deslogar';
+    });
+    document.getElementById('user-card-perfil')?.addEventListener('click', (e) => {
+        if (e.target.closest('#btn-sair')) return;
+        window.location.href = '/pages/perfil_profissional/perfil.html';
+    });
 });
 
 
@@ -156,7 +183,8 @@ async function processarTriagem() {
         divResultado.innerHTML = conteudoHTML;
 
         const btnVoltar = document.createElement('button');
-        btnVoltar.textContent = 'Voltar para a Página Principal';
+        btnVoltar.className = 'btn-secondary';
+        btnVoltar.textContent = 'Voltar ao Painel';
         btnVoltar.onclick = () => window.location.href = '/pages/main/main.html';
         divResultado.appendChild(btnVoltar);
 

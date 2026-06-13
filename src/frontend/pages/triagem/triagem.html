@@ -3,135 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saúde MaiX - Ficha de Triagem</title>
-    <link rel="stylesheet" href="triagem.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Saúde MaiX — Triagem</title>
     <link rel="icon" type="image/png" href="../img/logo-borboleta.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="triagem.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>Saúde MaiX<br><small>Ficha de Triagem Clínica</small></h2>
-
-    <div class="form-group">
-        <label for="busca_paciente">Selecione o Paciente:</label>
-        <input
-            type="text"
-            id="busca_paciente"
-            list="lista_pacientes"
-            placeholder="Digite o nome ou ID para pesquisar..."
-            autocomplete="off"
-        >
-        <datalist id="lista_pacientes"></datalist>
-        <input type="hidden" id="paciente_id_selecionado">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-mark">
+          <img src="../img/logo-borboleta.png" alt="Logo Saúde MaiX" width="35" height="35">
+        </div>
+        <span class="logo-text">Saúde MaiX</span>
+      </div>
     </div>
 
-    <div class="form-group">
-        <label for="sexo">Sexo Biológico do Paciente:</label>
-        <select id="sexo" disabled>
-            <option value="">— definido no cadastro do paciente —</option>
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-        </select>
-        <small class="campo-dica">O sexo vem do cadastro do paciente. Para alterá-lo, use "Editar" em Meus Pacientes.</small>
-    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-label">Menu</span>
 
-    <div class="form-group">
-        <label>Indicadores Clínicos Presentes (Pontuados):</label>
-        <div class="sintomas-lista" id="lista-sintomas">
+      <button class="nav-item" onclick="window.location.href='/pages/main/main.html'">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <line x1="19" y1="8" x2="19" y2="14"/>
+          <line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+        Novo Paciente
+      </button>
+
+      <button class="nav-item" onclick="window.location.href='/pages/main/main.html'">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Meus Pacientes
+      </button>
+
+      <button class="nav-item active" onclick="window.location.href='/pages/triagem/triagem.html'">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+        Triagem
+      </button>
+
+      <button class="nav-item" onclick="window.location.href='/pages/relatorio/relatorio.html'">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+          <line x1="2" y1="20" x2="22" y2="20"/>
+        </svg>
+        Relatórios
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card" id="user-card-perfil" title="Ver perfil" style="cursor:pointer;">
+        <div class="user-avatar" id="avatar-inicial">—</div>
+        <div class="user-info">
+          <div class="user-nome" id="user-nome">—</div>
+          <div class="user-perfil" id="user-perfil">—</div>
+        </div>
+        <button class="btn-sair" title="Sair" id="btn-sair">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ÁREA PRINCIPAL -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="topbar-title">Triagem</h1>
+        <p class="topbar-sub">Preencha os indicadores clínicos para calcular o risco</p>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <div class="content">
+      <div class="triagem-grid">
+
+        <!-- Card: Dados da triagem -->
+        <div class="form-card">
+          <h2 class="form-section-title">Dados da Triagem</h2>
+          <div class="form-row form-row-2">
+            <div class="form-field" style="flex:2">
+              <label for="busca_paciente">Paciente <span class="obrigatorio">*</span></label>
+              <input
+                type="text"
+                id="busca_paciente"
+                list="lista_pacientes"
+                placeholder="Digite o nome para pesquisar..."
+                autocomplete="off"
+              >
+              <datalist id="lista_pacientes"></datalist>
+              <input type="hidden" id="paciente_id_selecionado">
+            </div>
+            <div class="form-field" style="flex:1">
+              <label for="sexo">Sexo biológico</label>
+              <select id="sexo" disabled>
+                <option value="">— definido no cadastro —</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
+              <small class="campo-dica">Vem do cadastro do paciente. Para alterá-lo, use "Editar" em Meus Pacientes.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Indicadores clínicos -->
+        <div class="form-card">
+          <h2 class="form-section-title">Indicadores Clínicos Presentes (pontuados)</h2>
+          <div class="sintomas-lista" id="lista-sintomas">
 
             <div class="sintoma-item">
-                <input type="checkbox" id="face_alongada" value="face_alongada">
-                <label for="face_alongada">Face alongada / Orelhas proeminentes</label>
+              <input type="checkbox" id="face_alongada" value="face_alongada">
+              <label for="face_alongada">Face alongada / Orelhas proeminentes</label>
             </div>
 
             <div class="sintoma-item" id="div_macroorquidismo">
-                <input type="checkbox" id="macroorquidismo" value="macroorquidismo">
-                <label for="macroorquidismo">Macroorquidismo (Tamanho incomum dos testículos após pré-adolescência)</label>
+              <input type="checkbox" id="macroorquidismo" value="macroorquidismo">
+              <label for="macroorquidismo">Macroorquidismo (após a pré-adolescência)</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="hipermobilidade" value="hipermobilidade">
-                <label for="hipermobilidade">Hipermobilidade articular</label>
+              <input type="checkbox" id="hipermobilidade" value="hipermobilidade">
+              <label for="hipermobilidade">Hipermobilidade articular</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="deficiencia_intelectual" value="deficiencia_intelectual">
-                <label for="deficiencia_intelectual">Deficiência Intelectual</label>
+              <input type="checkbox" id="deficiencia_intelectual" value="deficiencia_intelectual">
+              <label for="deficiencia_intelectual">Deficiência Intelectual</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="dificuldade_aprendizagem" value="dificuldade_aprendizagem">
-                <label for="dificuldade_aprendizagem">Dificuldades de aprendizagem</label>
+              <input type="checkbox" id="dificuldade_aprendizagem" value="dificuldade_aprendizagem">
+              <label for="dificuldade_aprendizagem">Dificuldades de aprendizagem</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="deficit_atencao" value="deficit_atencao">
-                <label for="deficit_atencao">Déficit de atenção</label>
+              <input type="checkbox" id="deficit_atencao" value="deficit_atencao">
+              <label for="deficit_atencao">Déficit de atenção</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="movimentos_repetitivos" value="movimentos_repetitivos">
-                <label for="movimentos_repetitivos">Movimentos repetitivos</label>
+              <input type="checkbox" id="movimentos_repetitivos" value="movimentos_repetitivos">
+              <label for="movimentos_repetitivos">Movimentos repetitivos</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="atraso_fala" value="atraso_fala">
-                <label for="atraso_fala">Atraso na fala</label>
+              <input type="checkbox" id="atraso_fala" value="atraso_fala">
+              <label for="atraso_fala">Atraso na fala</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="hiperatividade" value="hiperatividade">
-                <label for="hiperatividade">Hiperatividade</label>
+              <input type="checkbox" id="hiperatividade" value="hiperatividade">
+              <label for="hiperatividade">Hiperatividade</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="evita_contato_visual" value="evita_contato_visual">
-                <label for="evita_contato_visual">Evita contato visual</label>
+              <input type="checkbox" id="evita_contato_visual" value="evita_contato_visual">
+              <label for="evita_contato_visual">Evita contato visual</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="evita_contato_fisico" value="evita_contato_fisico">
-                <label for="evita_contato_fisico">Evita contato físico</label>
+              <input type="checkbox" id="evita_contato_fisico" value="evita_contato_fisico">
+              <label for="evita_contato_fisico">Evita contato físico</label>
             </div>
 
             <div class="sintoma-item">
-                <input type="checkbox" id="agressividade" value="agressividade">
-                <label for="agressividade">Agressividade</label>
+              <input type="checkbox" id="agressividade" value="agressividade">
+              <label for="agressividade">Agressividade</label>
             </div>
+          </div>
         </div>
-    </div>
 
-    <div class="form-group secao-complementar">
-        <label>Histórico Familiar e Complementos (Não alteram o score):</label>
+        <!-- Card: Histórico familiar e complementos -->
+        <div class="form-card">
+          <h2 class="form-section-title">Histórico Familiar e Complementos</h2>
+          <p class="form-card-hint">Não alteram o score, mas ajudam na avaliação clínica.</p>
 
-        <div class="sintomas-lista">
+          <div class="sintomas-lista">
             <div class="sintoma-item">
-                <input type="checkbox" id="problemas_renais" value="sim">
-                <label for="problemas_renais">Possui ou tem histórico familiar de problemas renais?</label>
+              <input type="checkbox" id="problemas_renais" value="sim">
+              <label for="problemas_renais">Possui ou tem histórico familiar de problemas renais?</label>
             </div>
 
             <div class="sintoma-item oculto" id="pergunta_infertilidade">
-                <input type="checkbox" id="infertilidade" value="sim">
-                <label for="infertilidade">Você ou alguma mulher da família é infértil ou teve menopausa precoce?</label>
+              <input type="checkbox" id="infertilidade" value="sim">
+              <label for="infertilidade">Você ou alguma mulher da família é infértil ou teve menopausa precoce?</label>
             </div>
-        </div>
+          </div>
 
-        <div style="margin-top: 15px;">
-            <label for="outros_problemas">Outros problemas de saúde ou observações:</label>
+          <div class="form-field" style="margin-top:16px">
+            <label for="outros_problemas">Outros problemas de saúde ou observações</label>
             <textarea id="outros_problemas" rows="4" placeholder="Descreva aqui qualquer outro sintoma ou condição relevante..."></textarea>
+          </div>
         </div>
+
+        <div class="form-actions">
+          <button id="btn-calcular" class="btn-primary" onclick="processarTriagem()">Calcular Risco e Gerar Relatório</button>
+        </div>
+
+        <!-- Resultado -->
+        <div id="resultado"></div>
+
+      </div>
     </div>
+  </div>
 
-    <button id="btn-calcular" onclick="processarTriagem()">Calcular Risco e Gerar Relatório</button>
-
-    <div id="resultado"></div>
-</div>
-
-<script src="triagem.js?v=4"></script>
+  <script src="triagem.js?v=5"></script>
 
 </body>
 </html>
