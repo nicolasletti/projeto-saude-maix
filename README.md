@@ -44,7 +44,7 @@ git clone https://github.com/nicolasletti/projeto-saude-maix.git
   <tr>
     <td align="center">
       <a href="https://github.com/Willsonseg" title="Wilson Segundo">
-        <img src="https://avatars.githubusercontent.com/u/214506993?v=4" width="100px" height="100px" alt="Foto do Wilson Segundo no GitHub" style="border-radius: 50%; object-fit: cover;"/><br>
+        <img src="https://github.com/Willsonseg.png?size=200" width="100" height="100" alt="Foto do Wilson Segundo no GitHub" style="border-radius: 50%; object-fit: cover;"/><br>
         <sub>
           <b>Wilson Segundo</b>
         </sub>
@@ -52,7 +52,7 @@ git clone https://github.com/nicolasletti/projeto-saude-maix.git
     </td>
     <td align="center">
       <a href="https://github.com/nicolasletti" title="Nicolas Letti">
-        <img src="https://avatars.githubusercontent.com/u/212905180?v=4" width="100px" height="100px" alt="Foto do Nicolas Letti" style="border-radius: 50%; object-fit: cover;"/><br>
+        <img src="https://github.com/nicolasletti.png?size=200" width="100" height="100" alt="Foto do Nicolas Letti" style="border-radius: 50%; object-fit: cover;"/><br>
         <sub>
           <b>Nicolas Letti</b>
         </sub>
@@ -60,15 +60,15 @@ git clone https://github.com/nicolasletti/projeto-saude-maix.git
     </td>
     <td align="center">
       <a href="https://github.com/siilvadudu07" title="José Eduardo">
-        <img src="https://avatars.githubusercontent.com/u/214504150?v=4" width="100px" height="100px" alt="Foto do José Eduardo" style="border-radius: 50%; object-fit: cover;"/><br>
+        <img src="https://github.com/siilvadudu07.png?size=200" width="100" height="100" alt="Foto do José Eduardo" style="border-radius: 50%; object-fit: cover;"/><br>
         <sub>
           <b>José Eduardo</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/siilvadudu07" title="Murilo Antonio">
-        <img src="https://avatars.githubusercontent.com/u/213496530?v=4" width="100px" height="100px" alt="Foto do Murilo Antonio" style="border-radius: 50%; object-fit: cover;"/><br>
+      <a href="https://github.com/Murillo1993" title="Murilo Antonio">
+        <img src="https://github.com/Murillo1993.png?size=200" width="100px" height="100px" alt="Foto do Murilo Antonio" style="border-radius: 50%; object-fit: cover;"/><br>
         <sub>
           <b>Murilo Antonio</b>
         </sub>
