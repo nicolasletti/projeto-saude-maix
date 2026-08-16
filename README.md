@@ -1,9 +1,19 @@
 <h1 align="center">Projeto Saúde MaiX</h1>
 
-![GitHub repo size](https://img.shields.io/github/repo-size/nicolasletti/projeto-saude-maix?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/nicolasletti/projeto-saude-maix?style=for-the-badge)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/nicolasletti/projeto-saude-maix?style=for-the-badge)
-[![Youtube Project](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/sDMBUjlPSm4)
+<p align="center">
+  <a href="https://github.com/nicolasletti/projeto-saude-maix">
+    <img src="https://img.shields.io/github/repo-size/nicolasletti/projeto-saude-maix?style=for-the-badge" alt="Repo size">
+  </a>
+  <a href="https://github.com/nicolasletti/projeto-saude-maix">
+    <img src="https://img.shields.io/github/languages/count/nicolasletti/projeto-saude-maix?style=for-the-badge" alt="Languages">
+  </a>
+  <a href="https://github.com/nicolasletti/projeto-saude-maix/pulls">
+    <img src="https://img.shields.io/github/issues-pr/nicolasletti/projeto-saude-maix?style=for-the-badge" alt="Pull requests">
+  </a>
+  <a href="https://youtu.be/sDMBUjlPSm4">
+    <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube">
+  </a>
+</p>
 
 <p align="center">
   <img src="src/frontend/pages/img/logo-borboleta.png" alt="Projeto Saúde MaiX" width="200">
