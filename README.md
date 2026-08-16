@@ -1,4 +1,4 @@
-# Projeto Saúde MaiX
+<h1 align="center">Projeto Saúde MaiX</h1>
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/nicolasletti/projeto-saude-maix?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/nicolasletti/projeto-saude-maix?style=for-the-badge)
