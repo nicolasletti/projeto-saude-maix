@@ -1,4 +1,4 @@
-# Saúde MaiX
+# Projeto Saúde MaiX
  
 Sistema web de apoio à triagem clínica para a **Síndrome do X Frágil (SXF)**, desenvolvido como Projeto de Extensão em parceria com a **PUCPR** e o **IBK**.
  
@@ -139,12 +139,8 @@ saude-maix/
 │   │   │   ├── logar.js
 │   │   │   ├── logado.js      # Middleware de autenticação JWT
 │   │   │   └── deslogar.js
-│   │   ├── models/            # Queries SQL
-│   │   │   ├── pacienteModel.js
-│   │   │   └── avaliacaoModel.js
 │   │   ├── routes/            # Define as URLs da API
-│   │   │   ├── pacienteRoutes.js
-│   │   │   └── avaliacaoRoutes.js
+│   │   │   ├── pa
 │   │   ├── utils/
 │   │   │   └── db.js          # Conexão com o PostgreSQL
 │   │   └── server.js          # Ponto de entrada do backend
@@ -201,143 +197,11 @@ git config --global user.email "seu@email.com"
 ```bash
 git clone https://github.com/nicolasletti/saude-maix.git
 ```
- 
-### Ver o estado atual dos arquivos
- 
-```bash
-git status
-```
- 
-### Baixar as últimas alterações do repositório
- 
-```bash
-git pull origin main
-```
- 
-> Faça isso **sempre** antes de começar a trabalhar para evitar conflitos.
- 
-### Criar uma branch para sua tarefa
- 
-```bash
-git checkout -b feat/nome-da-funcionalidade
-```
- 
-Exemplos:
-```bash
-git checkout -b feat/tela-checklist
-git checkout -b fix/calculo-score
-git checkout -b docs/atualizar-readme
-```
- 
-### Adicionar arquivos para o commit
- 
-```bash
-# Adicionar tudo
-git add .
- 
-# Adicionar uma pasta específica
-git add src/frontend/pages/checklist/
- 
-# Adicionar um arquivo específico
-git add src/backend/controllers/logar.js
-```
- 
-### Criar um commit
- 
-```bash
-git commit -m "feat: descrição do que foi feito"
-```
- 
-### Enviar sua branch para o GitHub
- 
-```bash
-git push origin feat/nome-da-funcionalidade
-```
- 
-### Ver o histórico de commits
- 
-```bash
-git log --oneline
-```
- 
-### Voltar para a branch principal
- 
-```bash
-git checkout main
-```
- 
----
- 
-## Padrão de Commits
- 
-Este projeto usa o padrão **Conventional Commits**. Toda mensagem de commit deve seguir o formato:
- 
-```
-tipo: descrição curta no imperativo
-```
- 
-### Tipos disponíveis
- 
-| Tipo | Quando usar | Exemplo |
-|---|---|---|
-| `feat` | Nova funcionalidade | `feat: adicionar checklist de sintomas` |
-| `fix` | Correção de bug | `fix: corrigir cálculo do score feminino` |
-| `style` | Alteração visual, CSS | `style: ajustar cores do formulário de login` |
-| `refactor` | Refatoração sem mudar comportamento | `refactor: extrair lógica do score para core` |
-| `docs` | Documentação | `docs: atualizar README com instruções de banco` |
-| `chore` | Configuração, dependências | `chore: adicionar bcrypt ao package.json` |
-| `test` | Adição ou correção de testes | `test: adicionar teste unitário do scoreCalculator` |
- 
-### Exemplos de commits
- 
-```bash
-git commit -m "feat: implementar rota POST /api/avaliacoes"
-git commit -m "fix: corrigir varchar(15) do campo telefone no schema"
-git commit -m "style: padronizar layout das páginas com CSS compartilhado"
-git commit -m "chore: atualizar .gitignore para Node.js"
-git commit -m "docs: adicionar diagrama de arquitetura"
-```
- 
-### O que evitar
- 
-```bash
-# ❌ Vago demais
-git commit -m "ajustes"
-git commit -m "correções"
-git commit -m "update"
- 
-# ✅ Descritivo e rastreável
-git commit -m "fix: remover campo senha do retorno da API de login"
-```
- 
----
- 
-## Fluxo de Trabalho em Equipe
- 
-```
-1. git pull origin main           # Atualiza sua máquina
- 
-2. git checkout -b feat/tarefa    # Cria sua branch
- 
-3. (desenvolve e testa)
- 
-4. git add .                      # Adiciona os arquivos
-   git commit -m "feat: ..."      # Cria o commit
- 
-5. git push origin feat/tarefa    # Sobe para o GitHub
- 
-6. Abre um Pull Request no GitHub para revisão
- 
-7. Após aprovação, merge na main
-```
- 
-> ⚠️ **Nunca faça commit diretamente na branch `main`.** Sempre trabalhe em uma branch separada e abra um Pull Request.
- 
+
 ---
  
 ## Equipe
  
 Projeto de Extensão — PUCPR × IBK  
-Disciplina: Métodos e Modelos Formais
  
 ---
